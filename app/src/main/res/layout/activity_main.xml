@@ -4,15 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="or"
+        tools:layout_editor_absoluteX="199dp"
+        tools:layout_editor_absoluteY="575dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continue as guest"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="654dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#A60707"
+        android:text="Log in"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="527dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#E4E4E4"
+        android:text="Sign up"
+        android:textColor="#100101"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="594dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Not affiliated with UW-Madison | Copyright ©"
+        tools:layout_editor_absoluteX="66dp"
+        tools:layout_editor_absoluteY="696dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="293dp"
+        android:layout_height="119dp"
+        app:srcCompat="@drawable/logo"
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="306dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="213dp"
+        android:layout_height="137dp"
+        app:srcCompat="@drawable/uw"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="-34dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
