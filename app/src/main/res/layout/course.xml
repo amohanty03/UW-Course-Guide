@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- Top Bar with app title and '+' button -->
+    <RelativeLayout
+        android:id="@+id/topBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red_primary"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/btnAdd"/>
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textSize="24sp"
+            android:layout_alignParentEnd="true"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+    <!-- Tabs for 'Courses' and 'Professor' -->
+    <LinearLayout
+        android:id="@+id/tabsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topBarLayout"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnCourses"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/courses"
+            android:background="@color/red_dark"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/btnProfessor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/professor"
+            android:background="@color/red_dark"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <!-- Search bar -->
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabsLayout"
+        android:hint="@string/hint_search_course"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawablePadding="10dp"
+        android:padding="12dp"
+        android:background="@android:color/white"
+        android:layout_margin="8dp"/>
+
+    <!-- Reviewing Course Title -->
+    <TextView
+        android:id="@+id/tvReviewingCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etSearch"
+        android:text="@string/reviewing_course"
+        android:padding="8dp"
+        android:background="@android:color/background_light"
+        android:textColor="@color/black"/>
+
+    <!-- Form Layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvReviewingCourse"
+        android:layout_above="@+id/btnPublishReview"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/formLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name_hint"/>
+
+            <Spinner
+                android:id="@+id/spinnerRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/rating_array"/>
+
+            <CheckBox
+                android:id="@+id/cbAnonymous"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stay_anonymous"/>
+
+            <EditText
+                android:id="@+id/etProfessorName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/professor_name_hint"/>
+
+            <Spinner
+                android:id="@+id/spinnerGrade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/grade_array"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerSeason"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/season_array"/>
+
+                <Spinner
+                    android:id="@+id/spinnerYear"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/year_array"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/review_hint"
+                android:inputType="textMultiLine"
+                android:minLines="4"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Publish Review Button -->
+    <Button
+        android:id="@+id/btnPublishReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/publish_review"
+        android:background="@color/red_primary"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"/>
+
+</RelativeLayout>
