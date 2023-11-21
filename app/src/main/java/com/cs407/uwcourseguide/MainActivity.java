@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView
                 .setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);
+        getSupportActionBar().hide();
     }
 
     HomePage firstFragment = new HomePage();

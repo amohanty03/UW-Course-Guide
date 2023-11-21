@@ -1,24 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/_825f874a0476ae10d78109a2ff07e9e" />
+
     <TextView
-        android:id="@+id/firstFragment"
+        android:id="@+id/settings_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings Page"
-        android:textColor="#43a047"
-        android:textSize="40sp"
-        android:textStyle="italic|bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="Settings"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:typeface="sans"
+        app:layout_constraintBottom_toTopOf="@+id/settingsFrameLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:backgroundTint="@color/red_translucent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="11dp"
+        android:text="Logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/settingsFrameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rounded_corners"
+        android:contentDescription="@string/appbar_scrolling_view_behavior"
+        android:paddingEnd="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_heading">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/userNameSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="Hi User!"
+                    android:textColor="@color/black"
+                    android:textSize="36sp" />
+
+                <TextView
+                    android:id="@+id/userSubscriberAgeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="Member since 20xx"
+                    android:textColor="@android:color/darker_gray" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="135dp"
+                android:src="@mipmap/ic_profile_foreground" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="180dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_white_background10_20"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/personalinfo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_personalinfo_foreground" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/personalinfo"
+                    android:paddingLeft="10dp"
+                    android:text="Personal Information"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitCenter"
+                    android:padding="0dp"
+                    android:background="@drawable/bordered_button"
+                    android:src="@drawable/ic_rightarrow_foreground" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/notificationsettings"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_notificon_foreground" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/notificationsettings"
+                    android:paddingLeft="10dp"
+                    android:text="Notification Settings"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitCenter"
+                    android:padding="0dp"
+                    android:background="@drawable/bordered_button"
+                    android:src="@drawable/ic_rightarrow_foreground" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/passwordicon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_passwordicon_foreground" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/passwordicon"
+                    android:paddingLeft="10dp"
+                    android:text="Reset Password"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitCenter"
+                    android:padding="0dp"
+                    android:background="@drawable/bordered_button"
+                    android:src="@drawable/ic_rightarrow_foreground" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="350dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_white_background10_20"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/aboutuwcg"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@mipmap/ic_uwcgicon_foreground" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/aboutuwcg"
+                    android:paddingLeft="10dp"
+                    android:text="About UW Course Guide"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitCenter"
+                    android:padding="0dp"
+                    android:background="@drawable/bordered_button"
+                    android:src="@drawable/ic_rightarrow_foreground" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/contactus"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_contactusicon_foreground" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/contactus"
+                    android:paddingLeft="10dp"
+                    android:text="Contact Us"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitCenter"
+                    android:padding="0dp"
+                    android:background="@drawable/bordered_button"
+                    android:src="@drawable/ic_rightarrow_foreground" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/versionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="11dp"
+            android:text="Version x.x"
+            android:textSize="12dp"
+            android:textColor="@android:color/darker_gray"/>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
