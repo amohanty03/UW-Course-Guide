@@ -14,18 +14,24 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView
         .OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
 
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
@@ -37,10 +43,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         bottomNavigationView.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
+
         Drawable customBackground = getResources().getDrawable(R.drawable.custom_background);
 
         // Set the item background programmatically
-        //bottomNavigationView.setItemBackground(customBackground);
+        bottomNavigationView.setItemBackground(customBackground);
+
 
         getSupportActionBar().hide();
     }
@@ -55,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         int itemID = item.getItemId();
 
         if (itemID == R.id.home) {
+
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flFragment, firstFragment)

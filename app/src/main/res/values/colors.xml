@@ -8,5 +8,6 @@
     <color name="red_primary">#D32F2F</color>
     <color name="red_dark">#B71C1C</color>
     <color name="red_translucent">#1AFF0000</color>
+    <color name="gray">#80434040</color>
     <color name="transparent">#00FFFFFF</color>
 </resources>
