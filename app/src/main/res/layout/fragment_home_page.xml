@@ -46,9 +46,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#FFFFF"
+            android:background="#FFFFFF"
             android:text="Courses"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black" />
 
         <Button
             android:id="@+id/btnProfessor"
@@ -66,12 +66,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/segmentedControlLayout"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:drawableLeft="@android:drawable/ic_menu_search"
-        android:hint="Enter course number, professor name..."
         android:drawablePadding="10dp"
-        android:padding="12dp"
-        android:background="@android:color/"
-        android:layout_margin="8dp"/>
+        android:hint="Enter course number, professor name..."
+        android:padding="12dp" />
 
     <!-- Instructional text -->
     <TextView
@@ -81,48 +83,4 @@
         android:layout_below="@id/etSearch"
         android:text="1. Select a tab 'Courses' or 'Professors' at the top of the screen.\n2. Type a course or professor you'd like to search.\n3. Click the icon to add your review."
         android:padding="8dp"/>
-
-    <!-- Bottom navigation -->
-    <LinearLayout
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/black">
-
-        <ImageView
-            android:id="@+id/ivHome"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_home"
-            android:contentDescription="@string/home"/>
-
-        <ImageView
-            android:id="@+id/ivSchedule"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_agenda"
-            android:contentDescription="@string/schedule"/>
-
-        <ImageView
-            android:id="@+id/ivLocation"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_mapmode"
-            android:contentDescription="@string/location"/>
-
-        <ImageView
-            android:id="@+id/ivSettings"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_manage"
-            android:contentDescription="@string/settings"/>
-    </LinearLayout>
-
 </RelativeLayout>
