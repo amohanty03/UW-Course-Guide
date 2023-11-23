@@ -2,4 +2,17 @@
     <string name="app_name">UW Course Guide</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="schedule_instructions">
+        Instructions on how to import your schedule:\n\n
+        Download your schedule from MyUW:\n\u2022 Navigate to MyUW Course Schedule section.\n\u2022 Click on the \'Print\' button on the left side of the page.\n\u2022 This should save a pdf file in your device\'s file manager.\n\n
+        Import the pdf file into UW Course Guide:\n\u2022 Import the downloaded pdf into UW Course Guide App marked by the \uD83D\uDCC4 icon.\n\u2022 After it has been imported, the schedule should display all your classes and the location tab should be updated with all the locations of your classes (if any).</string>
+    <string name="hint_search_course">Search for course you want to review...</string>
+    <string name="reviewing_course">You\'re reviewing: CS 407 Foundation of Mobile Systems and Applications</string>
+    <string name="name_hint">Name</string>
+    <string name="professor_name_hint">Professor name(s)</string>
+    <string name="review_hint">Review:</string>
+    <string name="publish_review">Publish Review</string>
+    <string name="stay_anonymous">Stay anonymous?</string>
+    <string name="courses">Courses</string>
+    <string name="professor">Professor</string>
 </resources>

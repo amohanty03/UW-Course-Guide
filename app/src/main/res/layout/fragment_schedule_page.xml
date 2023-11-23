@@ -37,7 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/topBarScheduleLayout"
-        android:layout_above="@+id/bottomNavigationViewSchedule"
         android:padding="16dp">
 
         <TextView
@@ -53,52 +52,6 @@
         android:id="@+id/ivBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/book_image"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/bottomNavigationViewSchedule"
         android:layout_marginBottom="16dp"/>
-
-    <!-- Bottom navigation -->
-    <LinearLayout
-        android:id="@+id/bottomNavigationViewSchedule"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/black">
-
-        <ImageView
-            android:id="@+id/ivHomeSchedule"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_home"
-            android:contentDescription="@string/home"/>
-
-        <ImageView
-            android:id="@+id/ivScheduleActive"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_agenda"
-            android:contentDescription="@string/schedule"/>
-
-        <ImageView
-            android:id="@+id/ivLocationSchedule"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_mapmode"
-            android:contentDescription="@string/location"/>
-
-        <ImageView
-            android:id="@+id/ivSettingsSchedule"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_manage"
-            android:contentDescription="@string/settings"/>
-    </LinearLayout>
-
 </RelativeLayout>
