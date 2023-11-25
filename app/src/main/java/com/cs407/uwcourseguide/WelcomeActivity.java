@@ -8,34 +8,33 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity{
-    // shows activity_login
+public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_welcome);
 
-        Button login = findViewById(R.id.login);
-        Button signup = findViewById(R.id.signup);
-        TextView continueAsGuest = findViewById(R.id.continueasguest);
+        Button login = findViewById(R.id.login2);
+        TextView forgot = findViewById(R.id.forgot);
+        TextView continueAsGuest = findViewById(R.id.continueasguest1);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-        signup.setOnClickListener(new View.OnClickListener() {
+        forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, CreateActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, ForgotActivity.class);
                 startActivity(intent);
             }
         });
         continueAsGuest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
