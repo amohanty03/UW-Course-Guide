@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- Top bar with screen title and a downward arrow button -->
+    <RelativeLayout
+        android:id="@+id/topBarScheduleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="#D32F2F">
+
+        <TextView
+            android:id="@+id/tvScheduleTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Schedule"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/btnDownloadArrow"/>
+
+        <ImageButton
+            android:id="@+id/btnDownloadArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/arrow_down_float"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <!-- Scrollable text view for instructions -->
+    <ScrollView
+        android:id="@+id/svInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topBarScheduleLayout"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvScheduleInstructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/schedule_instructions"
+            android:textColor="#D32F2F"/>
+    </ScrollView>
+
+    <!-- Image at the bottom -->
+    <ImageView
+        android:id="@+id/ivBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"/>
+</RelativeLayout>
