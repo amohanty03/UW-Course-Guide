@@ -6,11 +6,13 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -26,6 +28,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // check if user logged in or continued as guest
+        Intent intent = getIntent();
+        String str = intent.getStringExtra("userOrGuest");
+        if (str == "user"){
+            Log.i("I", "USER!!!");
+        } else {
+            Log.i("I", "GUEST!!!");
+        }
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 

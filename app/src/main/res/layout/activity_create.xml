@@ -63,20 +63,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+        android:id="@+id/username2"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:backgroundTint="#EFE6E6"
         android:ems="10"
-        android:hint="username@example.com"
+        android:hint="user@example.com"
         android:inputType="textEmailAddress"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress4"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress4" />
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress4"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginEnd="27dp"
@@ -91,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView2" />
 
     <EditText
-        android:id="@+id/editTextTextPassword3"
+        android:id="@+id/password2"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:backgroundTint="#FFFFFF"
@@ -100,7 +100,7 @@
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress2" />
+        app:layout_constraintStart_toStartOf="@+id/username2"
+        app:layout_constraintTop_toBottomOf="@+id/username2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

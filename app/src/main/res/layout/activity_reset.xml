@@ -17,15 +17,14 @@
         android:text="Back to log in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/resetLink" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/resetLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="174dp"
-        android:text="A reset link has been sent to [their email/phone number]"
         android:textColor="#FBFBFB"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
