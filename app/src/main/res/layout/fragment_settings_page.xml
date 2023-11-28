@@ -266,6 +266,36 @@
                     android:background="@drawable/bordered_button"
                     android:src="@drawable/ic_rightarrow_foreground" />
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/registeraccount"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_registeraccount_foreground" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/registeraccount"
+                    android:paddingLeft="10dp"
+                    android:text="Register Account"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitCenter"
+                    android:padding="0dp"
+                    android:background="@drawable/bordered_button"
+                    android:src="@drawable/ic_rightarrow_foreground" />
+            </RelativeLayout>
         </LinearLayout>
 
         <TextView
