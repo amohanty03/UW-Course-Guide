@@ -54,11 +54,22 @@
                 android:paddingTop="20dp"
                 android:src="@drawable/contactgif"/>
 
+            <TextView
+                android:id="@+id/contactText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp"
+                android:layout_below="@id/contactusgif"
+                android:text="@string/contactDescription"
+                android:textColor="@color/gray"
+                android:textAlignment="center"/>
+
             <EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/contactusgif"
+                android:layout_below="@id/contactText"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
