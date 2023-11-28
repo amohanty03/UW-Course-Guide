@@ -6,13 +6,17 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -90,4 +94,34 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         return false;
     }
+
+    public void goToPersonalInfo() {
+        Intent intent = new Intent(this, PersonalInformation.class);
+        startActivity(intent);
+    }
+
+    public void goToNotifSettings() {
+        Intent intent = new Intent(this, NotificationSettings.class);
+        startActivity(intent);
+    }
+
+//    public void goToResetPass() {
+//        Intent intent = new Intent(this, ForgotActivity.class);
+//        startActivity(intent);
+//    }
+
+    public void goToAboutUs() {
+        Intent intent = new Intent(this, AboutUWCG.class);
+        startActivity(intent);
+    }
+
+    public void goToContactUs() {
+        Intent intent = new Intent(this, ContactUs.class);
+        startActivity(intent);
+    }
+
+//    public void goToRegisterAccount() {
+//        Intent intent = new Intent(this, CreateActivity.class);
+//        startActivity(intent);
+//    }
 }
