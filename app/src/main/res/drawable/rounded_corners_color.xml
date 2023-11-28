@@ -1,0 +1,9 @@
+<!-- res/drawable/rounded_top_corners.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="0dp">
+        <shape>
+            <corners android:topLeftRadius="26dp" android:topRightRadius="26dp" android:bottomLeftRadius="26dp" android:bottomRightRadius="26dp"/>
+            <solid android:color="@color/red_translucent" />
+        </shape>
+    </item>
+</layer-list>

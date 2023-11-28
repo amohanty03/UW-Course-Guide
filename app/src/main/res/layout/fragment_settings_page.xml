@@ -123,6 +123,7 @@
                     android:layout_toEndOf="@id/personalinfo"
                     android:paddingLeft="10dp"
                     android:text="Personal Information"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <ImageButton
@@ -154,6 +155,7 @@
                     android:layout_toEndOf="@id/notificationsettings"
                     android:paddingLeft="10dp"
                     android:text="Notification Settings"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <ImageButton
@@ -185,6 +187,7 @@
                     android:layout_toEndOf="@id/passwordicon"
                     android:paddingLeft="10dp"
                     android:text="Reset Password"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <ImageButton
@@ -227,6 +230,7 @@
                     android:layout_toEndOf="@id/aboutuwcg"
                     android:paddingLeft="10dp"
                     android:text="About UW Course Guide"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <ImageButton
@@ -258,6 +262,7 @@
                     android:layout_toEndOf="@id/contactus"
                     android:paddingLeft="10dp"
                     android:text="Contact Us"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <ImageButton
@@ -289,6 +294,7 @@
                     android:layout_toEndOf="@id/registeraccount"
                     android:paddingLeft="10dp"
                     android:text="Register Account"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <ImageButton
