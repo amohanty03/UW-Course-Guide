@@ -21,7 +21,7 @@ public class HomePage extends AppCompatActivity //extends Fragment {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        Button firstFragmentButton = findViewById(R.id.firstFragmentButton);
+        Button firstFragmentButton = findViewById(R.id.btnCourses);
         firstFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,7 +33,7 @@ public class HomePage extends AppCompatActivity //extends Fragment {
             }
         });
 
-        Button secondFragmentButton = findViewById(R.id.secondFragmentButton);
+        Button secondFragmentButton = findViewById(R.id.btnProfessor);
         secondFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
