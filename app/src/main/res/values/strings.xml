@@ -10,6 +10,15 @@
     <string name="new_schedule_instructions">1. To view your schedule from MyUW:\n\t\t\t\u2022 Navigate to MyUW Course Schedule section.\n\t\t\t\u2022 Click on the \'Print\' button on the left side of the page.\n\t\t\t\u2022 This should save a pdf file in your device\'s file manager.\n\n
 2. Manually enter your course number, timings, location, professor, section from your Course Schedule by clicking on the \'+\' button in the top right corner.\n\n</string>
     <string name="contactDescription">Want to report a bug? Suggest a new feature? Or maybe an improvement? Or maybe tell us about yourself. We are here to help you with all of your questions!</string>
+    <string name="aboutuwcgDescription">With an intake of several new students every year, students look for suggestions
+    regarding the courses they should take but as new students, it would be hard to
+    understand its workload, any required materials, the best semester to take it in,
+    and who\'s the go-to professor for that course without talking to someone who has
+    previously taken it before. This can be particularly overwhelming, and we aim to
+    make this process easier and more streamlined to go through. Furthermore, we
+    strive to be a one-stop shop app for courses without having to navigate to
+    ratemyprofessors.com (professor review website), MadGrades (grade distribution
+    course website), and Reddit (forum discussion website for any type of topic).</string>
     <string name="reviewing_course">You\'re reviewing: CS 407 Foundation of Mobile Systems and Applications</string>
     <string name="schedule_lead">Instructions on how to import your schedule:</string>
     <string name="name_hint">Name</string>

@@ -29,4 +29,13 @@
         <item>2023</item>
         <item>2024</item>
     </string-array>
+
+    <string-array name="timeframe_options">
+        <item>5 mins prior</item>
+        <item>10 mins prior</item>
+        <item>15 mins prior</item>
+        <item>20 mins prior</item>
+        <item>25 mins prior</item>
+        <item>30 mins prior</item>
+    </string-array>
 </resources>

@@ -42,5 +42,96 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settings_heading">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/systemNotifsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Receive system notifications"
+                android:textSize="16dp"
+                android:textColor="@color/gray"
+                android:paddingStart="25dp"
+                android:paddingTop="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_below="@+id/systemNotifsText"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/round_white_background10_20"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/classNotifs"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_schedule_foreground" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/classNotifs"
+                        android:paddingLeft="10dp"
+                        android:text="Class Notifications"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/classNotifsSwtich"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        app:trackTint="@color/switch_track_selector"
+                        app:thumbTint="@color/switch_thumb_selector"
+                        android:padding="0dp"
+                        android:scaleType="fitCenter" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/classReminders"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_notificon_foreground" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/classReminders"
+                        android:paddingLeft="10dp"
+                        android:text="Reminder Timeframe"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/reminderTimeframeButton"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitCenter"
+                        android:background="@drawable/bordered_button"
+                        android:src="@drawable/ic_rightarrow_foreground" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
