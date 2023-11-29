@@ -32,13 +32,26 @@ public class PersonalInformation extends AppCompatActivity {
         collegeYearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+                openYearDialog();
+            }
+        });
+
+        ImageButton usernameButton = findViewById(R.id.nameButton);
+        usernameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNameDialog();
             }
         });
     }
 
-    private void openDialog() {
+    private void openYearDialog() {
         CollegeYearDialog dialogOptions = new CollegeYearDialog();
+        dialogOptions.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    private void openNameDialog() {
+        PersonalInfoNameDialog dialogOptions = new PersonalInfoNameDialog();
         dialogOptions.show(getSupportFragmentManager(), "example dialog");
     }
 }
