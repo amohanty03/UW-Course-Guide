@@ -34,7 +34,8 @@
             android:exported="false" />
         <activity
             android:name=".PersonalInformation"
-            android:exported="false" />
+            android:exported="false"/>
+        <activity
             android:name=".MainEmptyActivity"
             android:exported="true"
             android:theme="@android:style/Theme.NoDisplay">

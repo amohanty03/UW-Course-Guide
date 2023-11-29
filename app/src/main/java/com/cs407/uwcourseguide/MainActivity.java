@@ -168,10 +168,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         startActivity(intent);
     }
 
-//    public void goToResetPass() {
-//        Intent intent = new Intent(this, ForgotActivity.class);
-//        startActivity(intent);
-//    }
+    public void goToResetPass() {
+        Intent intent = new Intent(this, ForgotActivity.class);
+        startActivity(intent);
+    }
 
     public void goToAboutUs() {
         Intent intent = new Intent(this, AboutUWCG.class);
@@ -183,8 +183,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         startActivity(intent);
     }
 
-//    public void goToRegisterAccount() {
-//        Intent intent = new Intent(this, CreateActivity.class);
-//        startActivity(intent);
-//    }
+    public void goToRegisterAccount() {
+        Intent intent = new Intent(this, CreateActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToWelcomePage() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 }

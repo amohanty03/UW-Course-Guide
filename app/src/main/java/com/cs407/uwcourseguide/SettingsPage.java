@@ -1,6 +1,9 @@
 package com.cs407.uwcourseguide;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +11,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +31,13 @@ public class SettingsPage extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_settings_page, container, false);
 
+        TextView textVersionView = rootView.findViewById(R.id.versionTextView);
+        String versionName = getAppVersionName(getContext());
+        textVersionView.setText("Version " + versionName);
+
+        Button logoutButton = rootView.findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(view -> ((MainActivity) requireActivity()).goToWelcomePage());
+
         // Personal Information Redirect
         ImageButton personalInfo = rootView.findViewById(R.id.personalInfoButton);
         personalInfo.setOnClickListener(view -> ((MainActivity) requireActivity()).goToPersonalInfo());
@@ -36,7 +48,7 @@ public class SettingsPage extends Fragment {
 
         // Reset Password Redirect
         ImageButton resetPass = rootView.findViewById(R.id.resetPassButton);
-       // resetPass.setOnClickListener(view -> ((MainActivity) requireActivity()).goToResetPass());
+        resetPass.setOnClickListener(view -> ((MainActivity) requireActivity()).goToResetPass());
 
         // About UW Course Guide Redirect
         ImageButton aboutUs = rootView.findViewById(R.id.aboutUsButton);
@@ -48,9 +60,19 @@ public class SettingsPage extends Fragment {
 
         // Register Account Redirect
         ImageButton registerAcc = rootView.findViewById(R.id.registerAccButton);
-        //registerAcc.setOnClickListener(view -> ((MainActivity) requireActivity()).goToRegisterAccount());
+        registerAcc.setOnClickListener(view -> ((MainActivity) requireActivity()).goToRegisterAccount());
 
         return rootView;
+    }
+
+    private String getAppVersionName(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "Unknown";
+        }
     }
 
 

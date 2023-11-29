@@ -318,7 +318,6 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginBottom="11dp"
-            android:text="Version x.x"
             android:textSize="12dp"
             android:textColor="@android:color/darker_gray"/>
     </FrameLayout>
