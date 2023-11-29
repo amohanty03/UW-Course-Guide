@@ -14,7 +14,7 @@ public class MainEmptyActivity extends AppCompatActivity {
         Intent activityIntent;
 
         // go straight to main if a token is stored
-        Boolean tokenStored = false;
+        Boolean tokenStored = Util.getToken(this) != null;
         if (tokenStored) {
             activityIntent = new Intent(this, MainActivity.class);
         } else {
