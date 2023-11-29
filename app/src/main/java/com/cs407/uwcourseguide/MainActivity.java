@@ -2,6 +2,7 @@ package com.cs407.uwcourseguide;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import android.annotation.SuppressLint;
@@ -11,24 +12,54 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+
+import android.view.LayoutInflater;
+
 import android.util.Log;
+
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageButton;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import javax.xml.transform.OutputKeys;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView
         .OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
 
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
+
+        Window window = this.getWindow();
+
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        // finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.black));
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         /*
         Depends what we want to do with guest:
             If guest data are all gone once app is close, then setToken before logging in or
@@ -79,10 +110,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         bottomNavigationView.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
+
         Drawable customBackground = getResources().getDrawable(R.drawable.custom_background);
 
         // Set the item background programmatically
-        //bottomNavigationView.setItemBackground(customBackground);
+        bottomNavigationView.setItemBackground(customBackground);
+
 
         getSupportActionBar().hide();
     }
@@ -97,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         int itemID = item.getItemId();
 
         if (itemID == R.id.home) {
+
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flFragment, firstFragment)
@@ -123,4 +157,34 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         return false;
     }
+
+    public void goToPersonalInfo() {
+        Intent intent = new Intent(this, PersonalInformation.class);
+        startActivity(intent);
+    }
+
+    public void goToNotifSettings() {
+        Intent intent = new Intent(this, NotificationSettings.class);
+        startActivity(intent);
+    }
+
+//    public void goToResetPass() {
+//        Intent intent = new Intent(this, ForgotActivity.class);
+//        startActivity(intent);
+//    }
+
+    public void goToAboutUs() {
+        Intent intent = new Intent(this, AboutUWCG.class);
+        startActivity(intent);
+    }
+
+    public void goToContactUs() {
+        Intent intent = new Intent(this, ContactUs.class);
+        startActivity(intent);
+    }
+
+//    public void goToRegisterAccount() {
+//        Intent intent = new Intent(this, CreateActivity.class);
+//        startActivity(intent);
+//    }
 }

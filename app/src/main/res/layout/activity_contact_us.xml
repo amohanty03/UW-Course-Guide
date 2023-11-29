@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/_825f874a0476ae10d78109a2ff07e9e" />
+
+    <TextView
+        android:id="@+id/settings_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="Contact Us"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:typeface="sans"
+        app:layout_constraintBottom_toTopOf="@+id/settingsFrameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/settingsFrameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rounded_corners"
+        android:contentDescription="@string/appbar_scrolling_view_behavior"
+        android:paddingEnd="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_heading">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/contactusgif"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:paddingTop="20dp"
+                android:src="@drawable/contactgif"/>
+
+            <TextView
+                android:id="@+id/contactText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp"
+                android:layout_below="@id/contactusgif"
+                android:text="@string/contactDescription"
+                android:textColor="@color/gray"
+                android:textAlignment="center"/>
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/contactText"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:drawableLeft="@drawable/person"
+                android:drawablePadding="10dp"
+                android:background="@drawable/rounded_corners_color"
+                android:hint="Name"
+                android:textColorHint="@color/gray"
+                android:textColor="@color/black"
+                android:padding="12dp" />
+
+
+            <EditText
+                android:id="@+id/MessageText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="16dp"
+                android:hint="Type your message here..."
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:layout_below="@id/name"
+                android:background="@drawable/rounded_corners_color"
+                android:minLines="5"
+                android:layout_weight="1"
+                android:textColorHint="@color/gray"
+                android:textColor="@color/black"
+                android:scrollbars="vertical" />
+
+
+            <Button
+                android:id="@+id/SendMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/MessageText"
+                android:onClick="sendEmail"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/red_primary"
+                android:text="Send Message" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

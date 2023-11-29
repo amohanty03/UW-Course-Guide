@@ -29,4 +29,22 @@
         <item>2023</item>
         <item>2024</item>
     </string-array>
+
+    <string-array name="timeframe_options">
+        <item>5 mins prior</item>
+        <item>10 mins prior</item>
+        <item>15 mins prior</item>
+        <item>20 mins prior</item>
+        <item>25 mins prior</item>
+        <item>30 mins prior</item>
+    </string-array>
+
+    <string-array name="collegeyear_options">
+        <item>Freshman</item>
+        <item>Sophomore</item>
+        <item>Junior</item>
+        <item>Senior</item>
+        <item>Super Senior</item>
+        <item>Graduate</item>
+    </string-array>
 </resources>
