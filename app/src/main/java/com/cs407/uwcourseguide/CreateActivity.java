@@ -42,6 +42,9 @@ public class CreateActivity extends AppCompatActivity {
                         if (true) {
                             // valid password
                             if (passwordInput.matches(passwordPattern)) {
+                                // set token as logged in
+                                Util.setToken(CreateActivity.this);
+
                                 Intent intent = new Intent(CreateActivity.this, MainActivity.class);
                                 intent.putExtra("userOrGuest", "user");
                                 startActivity(intent);

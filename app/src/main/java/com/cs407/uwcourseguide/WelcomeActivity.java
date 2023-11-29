@@ -36,6 +36,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 if (usernameInput.matches(emailPattern)){ // valid email
                     // check if correct username and password
                     if (true) { // correct password
+                        // set token as logged in
+                        Util.setToken(WelcomeActivity.this);
+
                         Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                         intent.putExtra("userOrGuest", "user");
                         startActivity(intent);
