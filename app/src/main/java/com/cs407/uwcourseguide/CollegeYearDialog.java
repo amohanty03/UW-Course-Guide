@@ -3,52 +3,50 @@ package com.cs407.uwcourseguide;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.core.content.ContextCompat;
-
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
-public class TimeframeDialog extends AppCompatDialogFragment {
-    //private TextView textViewToUpdate;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDialogFragment;
 
-
+public class CollegeYearDialog extends AppCompatDialogFragment {
+    private int lastSelectedOption = -1; // Default to -1 when no option is selected
+    private static final String KEY_SELECTED_OPTION = "selected_option";
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            lastSelectedOption = savedInstanceState.getInt(KEY_SELECTED_OPTION, -1);
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
 
         // Inflate a custom layout for the title
         View customTitleView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_dialog_title, null);
         TextView titleTextView = customTitleView.findViewById(R.id.customDialogTitle);
-        titleTextView.setText("Class Reminder Timeframe");
+        titleTextView.setText("Select your college year");
 
         builder.setCustomTitle(customTitleView)
-                .setSingleChoiceItems(R.array.timeframe_options, -1, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(R.array.collegeyear_options, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         // Handle the selected option
                         // 'which' is the index of the selected item
-
+                        lastSelectedOption = which;
                     }
                 })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         // Handle positive button click
-
+                        updateTextView();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -72,13 +70,22 @@ public class TimeframeDialog extends AppCompatDialogFragment {
         return dialog;
     }
 
-    // Method to set the TextView reference
-//    public void setTextViewToUpdate(TextView textViewToUpdate) {
-//        this.textViewToUpdate = textViewToUpdate;
-//        // Update TextView immediately if a selection has been made before
-//        updateTextView();
-//    }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_SELECTED_OPTION, lastSelectedOption);
+    }
 
-    // Method to update the TextView based on the last selected option
-
+    private void updateTextView() {
+        TextView collegeYear = getActivity().findViewById(R.id.Year);
+        if (collegeYear != null && lastSelectedOption >= 0) {
+            Log.i("info", "does it come here");
+            String[] options = getResources().getStringArray(R.array.collegeyear_options);
+            if (lastSelectedOption < options.length) {
+                String selectedText = options[lastSelectedOption];
+                //textViewToUpdate.setText("Selected Timeframe: " + selectedText);
+                collegeYear.setText(selectedText);
+            }
+        }
+    }
 }

@@ -5,8 +5,10 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 
 public class PersonalInformation extends AppCompatActivity {
 
@@ -25,5 +27,18 @@ public class PersonalInformation extends AppCompatActivity {
         // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.black));
         getSupportActionBar().hide();
+
+        ImageButton collegeYearButton = findViewById(R.id.yearButton);
+        collegeYearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
+    }
+
+    private void openDialog() {
+        CollegeYearDialog dialogOptions = new CollegeYearDialog();
+        dialogOptions.show(getSupportFragmentManager(), "example dialog");
     }
 }

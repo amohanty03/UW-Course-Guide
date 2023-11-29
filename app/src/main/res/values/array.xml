@@ -38,4 +38,13 @@
         <item>25 mins prior</item>
         <item>30 mins prior</item>
     </string-array>
+
+    <string-array name="collegeyear_options">
+        <item>Freshman</item>
+        <item>Sophomore</item>
+        <item>Junior</item>
+        <item>Senior</item>
+        <item>Super Senior</item>
+        <item>Graduate</item>
+    </string-array>
 </resources>
