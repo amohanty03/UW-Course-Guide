@@ -14,7 +14,11 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
+
+import android.util.Log;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         setContentView(R.layout.activity_main);
 
+
         Window window = this.getWindow();
 
         // clear FLAG_TRANSLUCENT_STATUS flag:
@@ -55,6 +60,45 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        /*
+        Depends what we want to do with guest:
+            If guest data are all gone once app is close, then setToken before logging in or
+            creating account.
+            If guest data are preserved until they log in or create an account, then setToken in
+            MainActivity.
+        Most likely will go with the first choice as that's easier and doesn't require us to do more
+        work on database.
+         */
+        //Util.setToken(this);
+
+
+        // check if user logged in or continued as guest
+        Intent intent = getIntent();
+        String userOrGuest = intent.getStringExtra("userOrGuest");
+        if (userOrGuest == "user"){
+            // user
+        } else {
+            // guest
+        }
+
+        /*
+        if userOrGuest is guest:
+            HomePage:
+                Can't add reviews. Everything else can be shown
+            SchedulePage:
+                Probably can add classes to their schedule but need a warning that it will all be
+                lost once they close this app
+            LocationPage:
+                Everything can be shown
+            SettingsPage:
+                Only shows:
+                    About UW Course Guide
+                    Contact Us
+                    Register Account - only for guest
+
+          Use AlertDialog if guest try to use any other feature.
+          And warning dialogs if guest are about to leave or make an account.
+         */
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
