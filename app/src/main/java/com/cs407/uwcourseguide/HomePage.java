@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class HomePage extends AppCompatActivity //extends Fragment {
+public class HomePage extends AppCompatActivity { //extends Fragment {
 
     public HomePage() {
         // Required empty public constructor
@@ -17,7 +17,7 @@ public class HomePage extends AppCompatActivity //extends Fragment {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_home_page);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -46,7 +46,6 @@ public class HomePage extends AppCompatActivity //extends Fragment {
         });
     }
 
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
