@@ -26,7 +26,7 @@ public class HomePage extends AppCompatActivity { //extends Fragment {
             @Override
             public void onClick(View v) {
                 fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView, FirstFragment.class, null)
+                        .replace(R.id.fragmentContainerView, CourseFragment.class, null)
                         .setReorderingAllowed(true)
                         .addToBackStack("showing Courses")
                         .commit();
@@ -38,10 +38,18 @@ public class HomePage extends AppCompatActivity { //extends Fragment {
             @Override
             public void onClick(View v) {
                 fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView, SecondFragment.class, null)
+                        .replace(R.id.fragmentContainerView, ProfessorFragment.class, null)
                         .setReorderingAllowed(true)
                         .addToBackStack("showing Professors")
                         .commit();
+            }
+        });
+
+        Button addButton = findViewById(R.id.btnAdd);
+        secondFragmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //add new review
             }
         });
     }
