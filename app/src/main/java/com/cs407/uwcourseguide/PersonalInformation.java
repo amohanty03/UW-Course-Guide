@@ -41,7 +41,6 @@ import java.io.File;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PersonalInformation extends AppCompatActivity {
-    ProgressDialog pd;
     String cameraPermission[];
     String storagePermission[];
     String newStoragePermission[];
@@ -52,32 +51,24 @@ public class PersonalInformation extends AppCompatActivity {
     private static final int IMAGE_PICKCAMERA_REQUEST = 500;
     private static final int CAMERA_AND_STORAGE_PERMISSION_REQUEST_CODE = 600;
     private static final int LEGACY_STORAGE_PERMISSION_REQUEST_CODE = 700; // Choose an appropriate value
-
     private ActivityResultLauncher<String> galleryLauncher;
-
     Uri imageuri;
     CircleImageView profilePic;
-    CircleImageView profilePicSettings;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_information);
         Window window = this.getWindow();
-        pd = new ProgressDialog(this);
-        pd.setCanceledOnTouchOutside(false);
-        cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        cameraPermission = new String[]{Manifest.permission.CAMERA};
         newStoragePermission = new String[]{Manifest.permission.READ_MEDIA_IMAGES};
         profilePic = findViewById(R.id.profilePhoto);
-        //profilePicSettings = findViewById(R.id.imageView5);
 
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
                 uri -> {
                     if (uri != null) {
-                        String fileName = getFileName(uri);
-                        Log.e("Image Loading", "Selected Filename: " + fileName);
+                        //String fileName = getFileName(uri);
+                        //Log.e("Image Loading", "Selected Filename: " + fileName);
 
                         // Load the image into the ImageView using Picasso
                         Picasso.get().load(uri).into(profilePic, new Callback() {
@@ -130,16 +121,9 @@ public class PersonalInformation extends AppCompatActivity {
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pd.setMessage("Updating Profile Photo");
                 showImagePicDialog();
             }
         });
-    }
-
-    // checking storage permission, if given then we can add something in our storage
-    private Boolean checkStoragePermission() {
-        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
-        return result;
     }
 
     private Boolean checkNewStoragePermission() {
@@ -159,44 +143,9 @@ public class PersonalInformation extends AppCompatActivity {
     // checking camera permission ,if given then we can click image using our camera
     private Boolean checkCameraPermission() {
         boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
-        boolean result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
-        return result && result1;
+        //boolean result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
+        return result;
     }
-
-    private void requestCameraAndStoragePermission() {
-        // Request both camera and storage permissions here
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_AND_STORAGE_PERMISSION_REQUEST_CODE);
-    }
-
-    private void requestWriteAccessToStorage() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // For Android 10 (API level 29) and above, use the MediaStore API
-            ContentResolver resolver = getContentResolver();
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, "YourImageFileName.jpg");
-            contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-            contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/YourAppDirectoryName");
-
-            Uri imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-
-            // You can use imageUri to write your image content to the specified location
-            Log.d("Permission", "Write access to storage granted using MediaStore API");
-        } else {
-            // For versions prior to Android 10, request the old WRITE_EXTERNAL_STORAGE permission
-            requestLegacyStoragePermission();
-        }
-    }
-
-    private void requestLegacyStoragePermission() {
-        // Request the deprecated WRITE_EXTERNAL_STORAGE permission for versions prior to Android 10
-        // Note: This part will not be executed on Android 10 and above
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted, request it
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, LEGACY_STORAGE_PERMISSION_REQUEST_CODE);
-        }
-    }
-
 
     // requesting for camera permission if not given
     private void requestCameraPermission() {
@@ -236,10 +185,10 @@ public class PersonalInformation extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // if access is not given then we will request for permission
                 if (which == 0) {  // Camera
-                    if (!checkCameraPermission() || !checkStoragePermission()) {
+                    if (!checkCameraPermission()) {
                         // First, request storage permission
                         Log.e("Permission", "Requesting storage permission");
-                        requestWriteAccessToStorage();
+                        requestCameraPermission();
                     } else {
                         // Storage permission is already granted, proceed to camera
                         Log.e("Permission", "Storage permission is already granted");
@@ -262,53 +211,68 @@ public class PersonalInformation extends AppCompatActivity {
         builder.show();
     }
 
-    //@SuppressLint("MissingSuperCall")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.e("ERRORS:", "COME HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE1");
         if (resultCode == Activity.RESULT_OK) {
+            Log.e("ERRORS:", "COME HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE2");
             if (requestCode == IMAGE_PICKGALLERY_REQUEST) {
                 imageuri = data.getData();
 
+                if (imageuri != null) {
+                    String fileName = getFileName(imageuri);
+                    Log.e("Image Loading", "Selected Filename: " + fileName);
 
-                            if (imageuri != null) {
-                                String fileName = getFileName(imageuri);
-                                Log.e("Image Loading", "Selected Filename: " + fileName);
+                    // Load the image into the ImageView using Picasso
+                    Picasso.get().load(imageuri).into(profilePic, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Log.e("Image Loading", "Image loaded successfully");
+                            // You can also show a message to the user if needed
+                        }
 
-                                // Load the image into the ImageView using Picasso
-                                Picasso.get().load(imageuri).into(profilePic, new Callback() {
-                                    @Override
-                                    public void onSuccess() {
-                                        Log.e("Image Loading", "Image loaded successfully");
-                                        // You can also show a message to the user if needed
-                                    }
-
-                                    @Override
-                                    public void onError(Exception e) {
-                                        Log.e("Image Loading", "Error loading image: " + e.getMessage());
-                                        // Handle the error, show an error message, or perform any necessary action
-                                    }
-                                });
-                            } else {
-                                Log.e("Image Loading", "Selected URI is null");
-                                // Handle the case where the selected URI is null
-                            }
-
-                //uploadProfileCoverPhoto(imageuri);
+                        @Override
+                        public void onError(Exception e) {
+                            Log.e("Image Loading", "Error loading image: " + e.getMessage());
+                            // Handle the error, show an error message, or perform any necessary action
+                        }
+                    });
+                } else {
+                    Log.e("Image Loading", "Selected URI is null");
+                    // Handle the case where the selected URI is null
+                }
             }
             if (requestCode == IMAGE_PICKCAMERA_REQUEST) {
-                //uploadProfileCoverPhoto(imageuri);
+
+                if (imageuri != null) {
+                    // Load the image into the ImageView using Picasso
+                    Picasso.get().load(imageuri).into(profilePic, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Log.e("Image Loading", "Image loaded successfully");
+                            // You can also show a message to the user if needed
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            Log.e("Image Loading", "Error loading image: " + e.getMessage());
+                            // Handle the error, show an error message, or perform any necessary action
+                        }
+                    });
+                } else {
+                    Log.e("Image Loading", "Selected URI is null");
+                    // Handle the case where the selected URI is null
+                }
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CAMERA_AND_STORAGE_PERMISSION_REQUEST_CODE) {
-            Log.e("ERRORS: ", String.valueOf(PackageManager.PERMISSION_GRANTED));
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == CAMERA_REQUEST) {
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Both permissions granted, proceed with picking from the camera
                 pickFromCamera();
             } else {
@@ -318,7 +282,6 @@ public class PersonalInformation extends AppCompatActivity {
         } else if (requestCode == NEW_STORAGE_REQUEST) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Storage permission granted, proceed with picking from the gallery
-                Log.e("ERRORS:", "COME HERE");
                 pickFromGallery();
             } else {
                 // Permission denied, show a message or handle it accordingly
@@ -328,13 +291,17 @@ public class PersonalInformation extends AppCompatActivity {
     }
 
     private void pickFromCamera() {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(MediaStore.Images.Media.TITLE, "Temp_pic");
-        contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Temp Description");
-        imageuri = this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-        Intent camerIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        camerIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageuri);
-        startActivityForResult(camerIntent, IMAGE_PICKCAMERA_REQUEST);
+        if (checkCameraPermission()) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(MediaStore.Images.Media.TITLE, "Temp_pic");
+            contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Temp Description");
+            imageuri = this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+            Intent camerIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            camerIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageuri);
+            startActivityForResult(camerIntent, IMAGE_PICKCAMERA_REQUEST);
+        } else {
+            requestCameraPermission();
+        }
     }
 
     // We will select an image from gallery
@@ -342,13 +309,15 @@ public class PersonalInformation extends AppCompatActivity {
         // Check if the permissions are granted
         if (checkNewStoragePermission()) {
             // Launch the gallery activity using the ActivityResultLauncher
-            Log.e("ERRORS:", "COME HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-            galleryLauncher.launch("image/*");
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+            galleryIntent.setType("image/*");
+            startActivityForResult(galleryIntent, IMAGE_PICKGALLERY_REQUEST);
         } else {
             // Request storage permission if not granted
             requestStoragePermission();
         }
     }
+
     private void openYearDialog() {
         CollegeYearDialog dialogOptions = new CollegeYearDialog();
         dialogOptions.show(getSupportFragmentManager(), "example dialog");
