@@ -7,6 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
+    <!-- Original ImageView and TextView -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
@@ -26,60 +27,88 @@
         android:textColor="@color/white"
         android:textSize="30sp"
         android:typeface="sans"
-        app:layout_constraintBottom_toTopOf="@+id/scheduleFrameLayout"
+        app:layout_constraintBottom_toTopOf="@+id/courseName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/importButton"
-        android:backgroundTint="@color/red_translucent"
-        android:layout_width="60dp"
+    <!-- New Input fields for schedule details with white text and hint -->
+    <EditText
+        android:id="@+id/courseName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="21dp"
-        android:text="+"
-        android:textSize="20dp"
+        android:hint="Course Name"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/schedule_heading"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <EditText
+        android:id="@+id/professorName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Professor Name"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/courseName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <EditText
+        android:id="@+id/courseTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Time"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/professorName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <EditText
+        android:id="@+id/courseDays"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Days of Week"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/courseTime"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <EditText
+        android:id="@+id/courseLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/courseDays"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <!-- Red Buttons for actions -->
+    <Button
+        android:id="@+id/submitSchedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red_translucent"
+        android:text="Submit"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/courseLocation"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-    <FrameLayout
-    android:id="@+id/scheduleFrameLayout"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="@drawable/rounded_corners"
-    android:paddingEnd="0dp"
-    app:layout_constraintBottom_toBottomOf="@+id/imageView"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/schedule_heading">
-
-
-<TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/schedule_lead"
-            android:layout_gravity="center_horizontal"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="20dp"
-            android:textSize="18dp"
-            android:textColor="@color/gray"/>
-
-        <TextView
-            android:id="@+id/tvScheduleInstructions"
-            android:layout_width="370dp"
-            android:layout_height="386dp"
-            android:layout_gravity="center_horizontal"
-            android:paddingStart="10dp"
-            android:paddingTop="60dp"
-            android:paddingEnd="10dp"
-            android:text="@string/new_schedule_instructions"
-            android:textColor="@color/gray"
-            android:textSize="18dp"/>
-    </FrameLayout>
-
+    <Button
+        android:id="@+id/viewSchedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red_translucent"
+        android:text="View Schedule"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/submitSchedule"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
