@@ -1,6 +1,8 @@
 package com.cs407.uwcourseguide;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -43,9 +45,13 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // validate all user inputs
-                String nameInput = name.getText().toString().trim();
-                String usernameInput = username.getText().toString().trim();
+                String nameInput = name.getText().toString().trim(); // username
+                String usernameInput = username.getText().toString().trim(); // email
                 String passwordInput = password.getText().toString().trim();
+
+                Context context = getApplicationContext();
+                SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase("users", Context.MODE_PRIVATE, null);
+                DBHelper dbHelper = new DBHelper(sqLiteDatabase);
 
                 // check if name does not already exist
                 if (true) {
@@ -57,6 +63,11 @@ public class CreateActivity extends AppCompatActivity {
                             if (passwordInput.matches(passwordPattern)) {
                                 // set token as logged in
                                 Util.setToken(CreateActivity.this);
+
+                                Util.setUsername(CreateActivity.this, nameInput);
+
+                                // full name same as username until they change that in settings
+                                dbHelper.saveUsers(nameInput, passwordInput, usernameInput, nameInput);
 
                                 Intent intent = new Intent(CreateActivity.this, MainActivity.class);
                                 intent.putExtra("userOrGuest", "user");
