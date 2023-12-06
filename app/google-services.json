@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "223343091447",
+    "project_id": "uw-course-guide",
+    "storage_bucket": "uw-course-guide.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223343091447:android:355e5f04e69e843a50bdf2",
+        "android_client_info": {
+          "package_name": "com.cs407.uwcourseguide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtMNo70b15drfaeuk0_KjUNY82znEfviU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
