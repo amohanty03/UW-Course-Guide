@@ -16,109 +16,115 @@
         app:srcCompat="@drawable/_825f874a0476ae10d78109a2ff07e9e" />
 
     <TextView
-        android:id="@+id/settings_heading"
+        android:id="@+id/contactus_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:text="Contact Us"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:typeface="sans"
-        app:layout_constraintBottom_toTopOf="@+id/settingsFrameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/settingsFrameLayout"
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/rounded_corners"
-        android:contentDescription="@string/appbar_scrolling_view_behavior"
-        android:paddingEnd="0dp"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_heading">
+        app:layout_constraintTop_toBottomOf="@+id/contactus_heading"
+        android:background="@drawable/rounded_corners">
 
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/contactUsFrameLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:contentDescription="@string/appbar_scrolling_view_behavior"
+            android:paddingEnd="0dp"
+            android:paddingTop="10dp">
 
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/contactusgif"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:paddingTop="20dp"
-                android:src="@drawable/contactgif"/>
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/contactText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingBottom="8dp"
-                android:layout_below="@id/contactusgif"
-                android:text="@string/contactDescription"
-                android:textColor="@color/gray"
-                android:textAlignment="center"/>
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/contactusgif"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:paddingTop="20dp"
+                    android:src="@drawable/contactgif"/>
 
-            <EditText
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/contactText"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:drawableLeft="@drawable/person"
-                android:drawablePadding="10dp"
-                android:background="@drawable/rounded_corners_color"
-                android:hint="Name"
-                android:textColorHint="@color/gray"
-                android:textColor="@color/black"
-                android:padding="12dp" />
+                <TextView
+                    android:id="@+id/contactText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_below="@id/contactusgif"
+                    android:text="@string/contactDescription"
+                    android:textColor="@color/gray"
+                    android:textAlignment="center"/>
 
-
-            <EditText
-                android:id="@+id/MessageText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:paddingStart="16dp"
-                android:paddingTop="16dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="16dp"
-                android:hint="Type your message here..."
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:layout_below="@id/name"
-                android:background="@drawable/rounded_corners_color"
-                android:minLines="5"
-                android:layout_weight="1"
-                android:textColorHint="@color/gray"
-                android:textColor="@color/black"
-                android:scrollbars="vertical" />
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contactText"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:drawableLeft="@drawable/person"
+                    android:drawablePadding="10dp"
+                    android:background="@drawable/rounded_corners_color"
+                    android:hint="Name"
+                    android:textColorHint="@color/gray"
+                    android:textColor="@color/black"
+                    android:padding="12dp" />
 
 
-            <Button
-                android:id="@+id/SendMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/MessageText"
-                android:onClick="sendEmail"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/red_primary"
-                android:text="Send Message" />
-        </RelativeLayout>
-    </FrameLayout>
+                <EditText
+                    android:id="@+id/MessageText"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="16dp"
+                    android:hint="Type your message here..."
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:inputType="textMultiLine"
+                    android:layout_below="@id/name"
+                    android:background="@drawable/rounded_corners_color"
+                    android:minLines="5"
+                    android:layout_weight="1"
+                    android:textColorHint="@color/gray"
+                    android:textColor="@color/black"
+                    android:scrollbars="vertical" />
 
+
+                <Button
+                    android:id="@+id/SendMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/MessageText"
+                    android:onClick="sendEmail"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/red_primary"
+                    android:text="Send Message" />
+            </RelativeLayout>
+
+        </FrameLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
