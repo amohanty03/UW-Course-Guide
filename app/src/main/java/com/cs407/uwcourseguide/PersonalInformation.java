@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class PersonalInformation extends AppCompatActivity {
 
@@ -35,6 +36,11 @@ public class PersonalInformation extends AppCompatActivity {
                 openYearDialog();
             }
         });
+
+        // set userName
+        TextView username = findViewById(R.id.userName);
+        String fullName = Util.getUsername(this);
+        username.setText(fullName);
 
         ImageButton usernameButton = findViewById(R.id.nameButton);
         usernameButton.setOnClickListener(new View.OnClickListener() {

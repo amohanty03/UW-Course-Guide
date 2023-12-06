@@ -67,7 +67,7 @@ public class CreateActivity extends AppCompatActivity {
                                 Util.setUsername(CreateActivity.this, nameInput);
 
                                 // full name same as username until they change that in settings
-                                dbHelper.saveUsers(nameInput, passwordInput, usernameInput, nameInput);
+                                // dbHelper.saveUsers(nameInput, passwordInput, usernameInput, nameInput);
 
                                 Intent intent = new Intent(CreateActivity.this, MainActivity.class);
                                 intent.putExtra("userOrGuest", "user");

@@ -16,17 +16,22 @@ public class DBHelper {
 
     public DBHelper(SQLiteDatabase sqLiteDatabase) {this.sqLiteDatabase = sqLiteDatabase;}
 
+    // mainly for schedule and map, courses for each user
     public static void createTable() {
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS users" + "(id INTEGER PRIMARY KEY, username TEXT, password TEXT, email TEXT, fullName TEXT)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS courses" + "(id INTEGER PRIMARY KEY, courseNumber TEXT, courseName, courseDescription TEXT)");
     }
 
-    public void saveUsers(String username, String password, String email, String fullName) {
+    public void saveCourses(String courseNumber, String courseName, String courseDescription) {
         createTable();
-        sqLiteDatabase.execSQL("INSERT INTO users (username, password, email, fullName) VALUES (?, ?, ?, ?)",
-                new String[]{username, password, email, fullName});
+        sqLiteDatabase.execSQL("INSERT INTO users (courseNumber, courseName, courseDescription) VALUES (?, ?, ?)",
+                new String[]{courseNumber, courseName});
     }
 
-    public String getUsersName(String username) {
+    // TODO: switch to getCourse or smt
+    public String getCourse(String courseNumber) {
+        createTable();
+        return "";
+        /*
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM users", null);
         if (cursor != null) {
             try {
@@ -63,6 +68,7 @@ public class DBHelper {
             fullName = "notFound";
         }
         return fullName;
+         */
     }
 }
 
