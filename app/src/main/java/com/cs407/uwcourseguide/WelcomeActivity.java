@@ -37,30 +37,35 @@ public class WelcomeActivity extends AppCompatActivity {
         EditText username = findViewById(R.id.username);
         EditText password = findViewById(R.id.password);
 
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        // String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
         // TODO: check if given email and password is correct
+        // switching to username and password
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // check if correct email and password
                 String usernameInput = username.getText().toString().trim();
                 String passwordInput = password.getText().toString().trim();
-                if (usernameInput.matches(emailPattern)){ // valid email
+                //if (usernameInput.matches(emailPattern)){ // valid email
                     // check if correct username and password
-                    if (true) { // correct password
-                        // set token as logged in
-                        Util.setToken(WelcomeActivity.this);
+                if (true) { // correct password
+                    // set token as logged in
+                    Util.setToken(WelcomeActivity.this);
 
-                        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                        intent.putExtra("userOrGuest", "user");
-                        startActivity(intent);
-                    } else { // incorrect password
-                        Toast.makeText(WelcomeActivity.this, "Given username or password does not match from database", Toast.LENGTH_LONG).show();
-                    }
+                    Util.setUsername(WelcomeActivity.this, usernameInput);
+
+                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    intent.putExtra("userOrGuest", "user");
+                    startActivity(intent);
+                } else { // incorrect password
+                    Toast.makeText(WelcomeActivity.this, "Given username or password does not match from database", Toast.LENGTH_LONG).show();
+                }
+                /*
                 } else{ // invalid email
                     Toast.makeText(WelcomeActivity.this, "Username invalid. Must be in this format: username@example.edu", Toast.LENGTH_LONG).show();
                 }
+                 */
             }
         });
 

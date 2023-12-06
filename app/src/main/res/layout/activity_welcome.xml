@@ -83,7 +83,7 @@
         android:layout_marginBottom="5dp"
         android:backgroundTint="#EFE6E6"
         android:ems="10"
-        android:hint="user@example.com"
+        android:hint="username"
         android:inputType="textEmailAddress"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
