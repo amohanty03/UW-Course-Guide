@@ -14,13 +14,16 @@ public class ScheduleGuestPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_schedule_guest_display, container, false);
-        login = view.findViewById(R.id.loginScheduleGuest);
-        signup = view.findViewById(R.id.loginScheduleGuest);
-        buttonListeners();
-        return view;
+        View rootView = inflater.inflate(R.layout.fragment_schedule_guest_display, container, false);
+        login = rootView.findViewById(R.id.loginScheduleGuest);
+        login.setOnClickListener(view -> ((MainActivity) requireActivity()).goToWelcomePage());
+        signup = rootView.findViewById(R.id.signupScheduleGuest);
+        signup.setOnClickListener(view -> ((MainActivity) requireActivity()).goToRegisterAccount());
+        //buttonListeners();
+        return rootView;
     }
 
+    /*
     private void buttonListeners() {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,4 +38,5 @@ public class ScheduleGuestPage extends Fragment {
             }
         });
     }
+     */
 }

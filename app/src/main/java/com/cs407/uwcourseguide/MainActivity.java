@@ -206,6 +206,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void goToWelcomePage() {
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
+    }
+    public void goToLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
