@@ -47,8 +47,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 // check if correct email and password
                 String usernameInput = username.getText().toString().trim();
                 String passwordInput = password.getText().toString().trim();
-                //if (usernameInput.matches(emailPattern)){ // valid email
-                    // check if correct username and password
+
+                // check if correct username and password
                 if (true) { // correct password
                     // set token as logged in
                     Util.setToken(WelcomeActivity.this);
@@ -61,11 +61,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 } else { // incorrect password
                     Toast.makeText(WelcomeActivity.this, "Given username or password does not match from database", Toast.LENGTH_LONG).show();
                 }
-                /*
-                } else{ // invalid email
-                    Toast.makeText(WelcomeActivity.this, "Username invalid. Must be in this format: username@example.edu", Toast.LENGTH_LONG).show();
-                }
-                 */
             }
         });
 
@@ -82,6 +77,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                 intent.putExtra("userOrGuest", "guest");
+                Util.setUsername(WelcomeActivity.this, "Guest");
                 startActivity(intent);
             }
         });

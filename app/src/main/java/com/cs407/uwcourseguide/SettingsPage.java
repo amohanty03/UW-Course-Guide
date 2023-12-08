@@ -70,7 +70,7 @@ public class SettingsPage extends Fragment {
         // Set userNameSettings to the full name
         TextView username = rootView.findViewById(R.id.userNameSettings);
         String fullName = Util.getUsername(getContext());
-        username.setText(fullName);
+        username.setText("Hi " + fullName);
 
         return rootView;
     }
