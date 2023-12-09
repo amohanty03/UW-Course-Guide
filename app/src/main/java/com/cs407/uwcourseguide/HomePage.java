@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,8 @@ public class HomePage extends Fragment implements ValueEventListener {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("courses");
+
+        AutoCompleteTextView autoCompleteTextView = rootView.findViewById(R.id.autoCompleteTextView);
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -53,25 +56,18 @@ public class HomePage extends Fragment implements ValueEventListener {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 List<String> coursesList = new ArrayList<>();
-                for (DataSnapshot courseSnapshot : dataSnapshot.getChildren()) { // courses' children
+                for (DataSnapshot courseSnapshot : dataSnapshot.getChildren()) {
                     // Iterate through each course under the "courses" node
-
                     // Get course number and name
-                    for (DataSnapshot courseChildren : courseSnapshot.getChildren()) { //
-                        for(DataSnapshot courseGrandChildren : courseChildren.getChildren())
-                            coursesList.add(courseGrandChildren.child("subject_abbrev").getValue(String.class) + " " + courseGrandChildren.child("number").getValue(String.class));
+                    for (DataSnapshot courseChildren : courseSnapshot.getChildren()) {
+                       coursesList.add(courseChildren.child("subject_abbrev").getValue(String.class) + " " + courseChildren.getKey());
                     }
-                    //String courseName = courseSnapshot.child("number").getValue(String.class);
-
-                    // Print or use the course number and name as needed
-                    //Log.d("CourseInfo", "Course Number: " + courseNumber);
-                    //Log.d("CourseInfo", "Course Name: " + courseName);
                 }
-
-                for (String courses : coursesList) {
-                    Log.d("CourseInfo", "Course Number: " + courses);
-                }
-                populateSpinner(coursesList);
+//                for (String courses : coursesList) {
+//                    Log.d("CourseInfo", "Course Number: " + courses);
+//                }
+                populateAutoCompleteTextView(coursesList, autoCompleteTextView);
+                //populateSpinner(coursesList);
             }
 
             @Override
@@ -93,63 +89,24 @@ public class HomePage extends Fragment implements ValueEventListener {
 
     }
 
-//    private void fetchDataFromDatabase(View rootView) {
-//        Statement st = null;
-//        Connection connection = null;
-//        Log.e("COURSE: ", "hellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo3");
-//        try {
-//            Class.forName("org.mariadb.jdbc.Driver");
-//            Log.e("COURSE: ", "hellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo4");
-//            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-//            Log.e("COURSE: ", "hellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo5");
-//            st = connection.createStatement();
-//            Log.e("COURSE: ", "hellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo6");
-//            String query = "SELECT * from courses";
-//            ResultSet rs = st.executeQuery(query);
-//            Log.e("COURSE: ", "hellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo7");
-//            // Process the ResultSet
-//            List<String> titles = new ArrayList<>();
-//            while (rs.next()) {
-//                String courseTitle = rs.getString("subject_abbrev");
-//                String courseNum = rs.getString("number");
-//                Log.e("COURSE: ", courseNum + " " + courseTitle);
-//                titles.add(courseTitle + " " + courseNum);
-//            }
+//    private void populateSpinner(List<String> titles) {
+//        Spinner spinner = getView().findViewById(R.id.a);
 //
-//            // Update UI on the main thread
-//            rootView.post(() -> populateSpinner(titles));
+//        // Create an ArrayAdapter using the string array and a default spinner layout
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, titles);
 //
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            try {
-//                if (st != null)
-//                    st.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//            try {
-//                if (connection != null) {
-//                    connection.close();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
+//        // Specify the layout to use when the list of choices appears
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        // Apply the adapter to the spinner
+//        spinner.setAdapter(adapter);
 //    }
-//
-    private void populateSpinner(List<String> titles) {
-        Spinner spinner = getView().findViewById(R.id.testCourses);
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, titles);
+    private void populateAutoCompleteTextView(List<String> titles, AutoCompleteTextView autoCompleteTextView) {
+        // Create an ArrayAdapter using the string array and a default layout
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, titles);
 
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        // Apply the adapter to the AutoCompleteTextView
+        autoCompleteTextView.setAdapter(adapter);
     }
 }
