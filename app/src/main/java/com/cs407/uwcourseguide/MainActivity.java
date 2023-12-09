@@ -2,6 +2,7 @@ package com.cs407.uwcourseguide;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         getSupportActionBar().hide();
     }
 
-    HomePage firstFragment = new HomePage();
+    HomePageFragment firstFragment = new HomePageFragment();
     SchedulePage secondFragment = new SchedulePage();
     LocationPage thirdFragment = new LocationPage();
     SettingsPage fourthFragment = new SettingsPage();

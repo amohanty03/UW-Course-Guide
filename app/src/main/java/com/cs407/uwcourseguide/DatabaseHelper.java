@@ -1,3 +1,4 @@
+/*
 package com.cs407.uwcourseguide;
 
 import android.content.Context;
@@ -60,3 +61,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 }
 
+*/

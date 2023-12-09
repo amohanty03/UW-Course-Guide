@@ -19,6 +19,12 @@ public class HomePage extends AppCompatActivity { //extends Fragment {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_home_page);
 
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainerView, new HomePageFragment())
+                    .commit();
+        }
+
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         Button firstFragmentButton = findViewById(R.id.btnCourses);
@@ -46,7 +52,7 @@ public class HomePage extends AppCompatActivity { //extends Fragment {
         });
 
         Button addButton = findViewById(R.id.btnAdd);
-        secondFragmentButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //add new review

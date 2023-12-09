@@ -13,14 +13,14 @@ import androidx.fragment.app.Fragment;
 public class CourseFragment extends Fragment {
 
     private EditText editTextSearchCourses;
-    private DatabaseHelper databaseHelper;
+    //private DatabaseHelper databaseHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.courses_fragment, container, false);
 
         editTextSearchCourses = view.findViewById(R.id.courseSearch);
-        databaseHelper = new DatabaseHelper(getContext());
+        //databaseHelper = new DatabaseHelper(getContext());
 
         editTextSearchCourses.addTextChangedListener(new TextWatcher() {
             @Override
@@ -41,6 +41,6 @@ public class CourseFragment extends Fragment {
 
     private void searchCourses(String query) {
         // Retrieve data from database that matches the query
-        List<Course> courses = databaseHelper.searchCourses(query);
+        //List<Course> courses = databaseHelper.searchCourses(query);
     }
 }
