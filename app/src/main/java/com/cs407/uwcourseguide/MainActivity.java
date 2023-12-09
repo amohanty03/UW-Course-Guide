@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     BottomNavigationView bottomNavigationView;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
+    String userOrGuest;
+
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +76,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // check if user logged in or continued as guest
         Intent intent = getIntent();
-        String userOrGuest = intent.getStringExtra("userOrGuest");
+        userOrGuest = intent.getStringExtra("userOrGuest");
         if (userOrGuest == "user"){
-            // user
+            //Log.d("DEBUG", "+++++++++++++++++++++++++++++++USER+++++++++++++++++++++++++++++++");
         } else {
-            // guest
+            //Log.d("DEBUG", "+++++++++++++++++++++++++++++++GUEST+++++++++++++++++++++++++++++++" + userOrGuest);
         }
 
         /*
@@ -122,8 +124,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     HomePage firstFragment = new HomePage();
     SchedulePage secondFragment = new SchedulePage();
+    ScheduleGuestPage secondGuestFragment = new ScheduleGuestPage();
     LocationPage thirdFragment = new LocationPage();
     SettingsPage fourthFragment = new SettingsPage();
+    SettingsPageGuest fourthFragmentGuest = new SettingsPageGuest();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -136,22 +140,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     .replace(R.id.flFragment, firstFragment)
                     .commit();
             return true;
-        } else if (itemID == R.id.schedule) {
+        } else if (itemID == R.id.schedule && userOrGuest.equals("user")) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flFragment, secondFragment)
                     .commit();
             return true;
-        } else if (itemID == R.id.location) {
+        } else if (itemID == R.id.schedule && userOrGuest.equals("guest")) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.flFragment, secondGuestFragment)
+                    .commit();
+            return true;
+        }
+        else if (itemID == R.id.location) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flFragment, thirdFragment)
                     .commit();
             return true;
-        } else if (itemID == R.id.settings) {
+        } else if (itemID == R.id.settings && userOrGuest.equals("user")) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flFragment, fourthFragment)
+                    .commit();
+            return true;
+        } else if (itemID == R.id.settings && userOrGuest.equals("guest")){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.flFragment, fourthFragmentGuest)
                     .commit();
             return true;
         }
@@ -189,6 +206,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void goToWelcomePage() {
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
+    }
+    public void goToLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

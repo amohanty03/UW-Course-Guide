@@ -37,7 +37,7 @@ public class SettingsPage extends Fragment {
         textVersionView.setText("Version " + versionName);
 
         Button logoutButton = rootView.findViewById(R.id.logoutButton);
-        logoutButton.setOnClickListener(view -> ((MainActivity) requireActivity()).goToWelcomePage());
+        logoutButton.setOnClickListener(view -> ((MainActivity) requireActivity()).goToLoginPage());
 
         // Personal Information Redirect
         ImageButton personalInfo = rootView.findViewById(R.id.personalInfoButton);
@@ -70,7 +70,7 @@ public class SettingsPage extends Fragment {
         // Set userNameSettings to the full name
         TextView username = rootView.findViewById(R.id.userNameSettings);
         String fullName = Util.getUsername(getContext());
-        username.setText(fullName);
+        username.setText("Hi " + fullName);
 
         return rootView;
     }
