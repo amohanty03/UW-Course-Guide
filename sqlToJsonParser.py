@@ -1,5 +1,6 @@
 import re
 import json
+import time
 
 def process_sql_file(file_path):
     # Read the SQL file
@@ -17,6 +18,7 @@ def process_sql_file(file_path):
 
     # Process each 'INSERT INTO' statement
     firebase_data = {}
+    special_characters = set("$#[]./")
     for table, columns, values in insert_statements:
         num_of_courses_extracted += 1
 
@@ -28,6 +30,10 @@ def process_sql_file(file_path):
         # Create a dictionary for the row
         row_data = dict(zip(columns, values))
 
+        # Remove keys with empty keys or containing $#[]./
+        row_data = {key: value for key, value in row_data.items() if
+                    key and all(char not in key for char in "$#[]./")}
+
         if columns[1] not in row_data:
             continue
 
@@ -36,12 +42,8 @@ def process_sql_file(file_path):
 
         if not row_id:
             continue
-
-        special_characters = set("$#[]./")
         if any(char in special_characters for char in row_id):
             continue
-
-        print(f"row_id {row_id}")
 
         # Add to firebase data
         if table not in firebase_data:
@@ -51,6 +53,11 @@ def process_sql_file(file_path):
             continue
 
         course_number = row_data['number']
+
+        if not course_number:
+            continue
+        if any(char in special_characters for char in course_number):
+            continue
 
         if row_id not in firebase_data[table]:
             firebase_data[table][row_id] = {}
