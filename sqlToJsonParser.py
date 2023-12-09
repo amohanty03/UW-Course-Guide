@@ -34,6 +34,15 @@ def process_sql_file(file_path):
         # Use a unique identifier for each row (assuming the first two columns form a unique key)
         row_id = f"{row_data[columns[0]]}-{row_data[columns[1]]}"
 
+        if not row_id:
+            continue
+
+        special_characters = set("$#[]./")
+        if any(char in special_characters for char in row_id):
+            continue
+
+        print(f"row_id {row_id}")
+
         # Add to firebase data
         if table not in firebase_data:
             firebase_data[table] = {}
