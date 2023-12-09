@@ -31,6 +31,13 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.xml.transform.OutputKeys;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView
@@ -75,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // check if user logged in or continued as guest
         Intent intent = getIntent();
         String userOrGuest = intent.getStringExtra("userOrGuest");
-        if (userOrGuest == "user"){
+        if (userOrGuest == "user") {
             // user
         } else {
             // guest
@@ -118,6 +125,29 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
         getSupportActionBar().hide();
+
+//        Statement st = null;
+//        Connection connection = null;
+//        try {
+//            connection = DriverManager.getConnection(
+//                    "jdbc:mariadb://localhost:3306/database_name",
+//                    "root", "saltyhayonwfneals@&13459"
+//            );
+//            String query = "SELECT * from courses";
+//            st = connection.createStatement();
+//            ResultSet rs = st.executeQuery(query);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (st != null) {
+//                    st.close();
+//                }
+//                connection.close();
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
     }
 
     HomePage firstFragment = new HomePage();

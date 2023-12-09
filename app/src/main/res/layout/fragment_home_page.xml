@@ -83,4 +83,11 @@
         android:layout_below="@id/etSearch"
         android:text="1. Select a tab 'Courses' or 'Professors' at the top of the screen.\n2. Type a course or professor you'd like to search.\n3. Click the icon to add your review."
         android:padding="8dp"/>
+
+    <Spinner
+        android:id="@+id/testCourses"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/tvInstructions"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
