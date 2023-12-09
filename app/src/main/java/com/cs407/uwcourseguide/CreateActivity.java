@@ -91,6 +91,8 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreateActivity.this, MainActivity.class);
+                intent.putExtra("userOrGuest", "guest");
+                Util.setUsername(CreateActivity.this, "Guest");
                 startActivity(intent);
             }
         });
