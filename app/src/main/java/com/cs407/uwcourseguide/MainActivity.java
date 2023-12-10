@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // check if user logged in or continued as guest
         Intent intent = getIntent();
-        String userOrGuest = intent.getStringExtra("userOrGuest");
+        userOrGuest = intent.getStringExtra("userOrGuest");
         
 
         /*
@@ -238,5 +238,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void goToLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+    }
+    public void goToCourseFragment(){
+        //Intent intent = new Intent(this, )
     }
 }
