@@ -98,68 +98,8 @@ public class LocationPage extends Fragment implements OnMapReadyCallback {
                     .icon(BitmapDescriptorFactory.defaultMarker(marker.getColor()));
             googleMap.addMarker(markerOptions);
         }
-        //new DrawRouteTask(customMarkers).execute(myLocation);
         displayMyLocation();
-        //drawRouteFromCurrentLocationToDestinations(customMarkers);
     }
-
-//    private void drawRouteFromCurrentLocationToDestinations(List<CustomMarker> destinations) {
-//        if (myLocation != null && destinations != null && !destinations.isEmpty()) {
-//            for (CustomMarker destination : destinations) {
-//                // Fetch the route using Directions API
-//                new DrawRouteTask(destinations).execute(myLocation, destination.getPosition());
-//            }
-//        }
-//    }
-//
-//    private class DrawRouteTask extends AsyncTask<Object, Void, DirectionsResult> {
-//
-//        private List<CustomMarker> destinations;
-//
-//        public DrawRouteTask(List<CustomMarker> destinations) {
-//            this.destinations = destinations;
-//        }
-//        @Override
-//        protected DirectionsResult doInBackground(Object... params) {
-//            LatLng myLocation = (LatLng) params[0];
-//            LatLng destination = (LatLng) params[1];
-//
-//            try {
-//                GeoApiContext context = new GeoApiContext.Builder().apiKey(getString(R.string.google_maps_key)).build();
-//                return DirectionsApi.newRequest(context)
-//                        .origin(new com.google.maps.model.LatLng(myLocation.latitude, myLocation.longitude))
-//                        .destination(new com.google.maps.model.LatLng(destination.latitude, destination.longitude))
-//                        .mode(TravelMode.DRIVING)
-//                        .units(Unit.METRIC)
-//                        .await();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                return null;
-//            }
-//        }
-//
-//        @Override
-//        protected void onPostExecute(DirectionsResult result) {
-//            if (result != null && result.routes != null && result.routes.length > 0) {
-//                List<LatLng> points = new ArrayList<>();
-//                for (com.google.maps.model.LatLng latLng : result.routes[0].overviewPolyline.decodePath()) {
-//                    points.add(new LatLng(latLng.lat, latLng.lng));
-//                }
-//
-//                // Draw the route on the map
-//                mMap.addPolyline(new PolylineOptions().addAll(points).color(Color.BLUE));
-//
-//                // Adjust camera to fit all markers and route
-//                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-//                builder.include(myLocation);
-//                for (CustomMarker destination : destinations) {
-//                    builder.include(destination.getPosition());
-//                }
-//                LatLngBounds bounds = builder.build();
-//                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-//            }
-//        }
-//    }
 
     private LatLng getLocationFromAddress(String address) {
         Geocoder geocoder = new Geocoder(requireContext());

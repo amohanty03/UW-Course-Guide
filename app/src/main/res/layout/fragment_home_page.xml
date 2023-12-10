@@ -61,8 +61,8 @@
     </LinearLayout>
 
     <!-- Search bar -->
-    <EditText
-        android:id="@+id/etSearch"
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/segmentedControlLayout"
@@ -73,14 +73,18 @@
         android:drawableLeft="@android:drawable/ic_menu_search"
         android:drawablePadding="10dp"
         android:hint="Enter course number, professor name..."
-        android:padding="12dp" />
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:dropDownHeight="wrap_content"/>
 
     <!-- Instructional text -->
     <TextView
         android:id="@+id/tvInstructions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etSearch"
+        android:layout_below="@id/autoCompleteTextView"
         android:text="1. Select a tab 'Courses' or 'Professors' at the top of the screen.\n2. Type a course or professor you'd like to search.\n3. Click the icon to add your review."
         android:padding="8dp"/>
+
+
 </RelativeLayout>
