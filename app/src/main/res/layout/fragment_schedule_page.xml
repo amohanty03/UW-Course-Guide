@@ -77,16 +77,30 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
-    <EditText
-        android:id="@+id/courseLocation"
-        android:layout_width="match_parent"
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteLocation"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Location"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
+        android:inputType="text"
         app:layout_constraintTop_toBottomOf="@id/courseDays"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextRoomNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Room Number"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/autoCompleteLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <!-- Red Buttons for actions -->
     <Button
@@ -96,7 +110,7 @@
         android:backgroundTint="@color/red_translucent"
         android:text="Submit"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/courseLocation"
+        app:layout_constraintTop_toBottomOf="@id/editTextRoomNumber"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 

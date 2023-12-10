@@ -4,117 +4,85 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.Toast;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
+import androidx.lifecycle.ViewModelProvider;
+import androidx.room.Room;
+import org.json.JSONArray;
+import org.json.JSONException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class SchedulePage extends Fragment {
-
-    private EditText courseName, professorName, courseTime, courseDays, courseLocation;
-    private Button submitButton, viewScheduleButton;
-
-    // Temporary storage for the schedule data
-    private ArrayList<Map<String, String>> scheduleList = new ArrayList<>();
-
-    public SchedulePage() {
-        // Required empty public constructor
-    }
+    private AppDatabase db;
+    private ScheduleViewModel scheduleViewModel;
+    private AutoCompleteTextView autoCompleteLocation;
+    private EditText editTextClassName, editTextProfessor, editTextRoomNumber;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule_page, container, false);
 
-        // Initializing the input fields and buttons
-        courseName = view.findViewById(R.id.courseName);
-        professorName = view.findViewById(R.id.professorName);
-        courseTime = view.findViewById(R.id.courseTime);
-        courseDays = view.findViewById(R.id.courseDays);
-        courseLocation = view.findViewById(R.id.courseLocation);
-        submitButton = view.findViewById(R.id.submitSchedule);
-        viewScheduleButton = view.findViewById(R.id.viewSchedule);
+        db = Room.databaseBuilder(getContext().getApplicationContext(), AppDatabase.class, "schedule-database").build();
+        scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
 
-        // Set up listeners for the buttons
-        setupButtonListeners();
+        autoCompleteLocation = view.findViewById(R.id.autoCompleteLocation);
+        editTextClassName = view.findViewById(R.id.courseName);
+        editTextProfessor = view.findViewById(R.id.professorName);
+        editTextRoomNumber = view.findViewById(R.id.editTextRoomNumber);
+
+        // Load locations into the AutoCompleteTextView from JSON file
+        List<String> locations = loadLocationsFromJsonFile();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, locations);
+        autoCompleteLocation.setAdapter(adapter);
+        autoCompleteLocation.setThreshold(1); // Start filtering from one character
+
+        // Handle save button click
+        view.findViewById(R.id.submitSchedule).setOnClickListener(v -> saveSchedule());
 
         return view;
     }
 
-    private void setupButtonListeners() {
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addScheduleEntry();
+    private List<String> loadLocationsFromJsonFile() {
+        List<String> locations = new ArrayList<>();
+        try {
+            InputStream is = getContext().getAssets().open("locations.json");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuilder json = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                json.append(line);
             }
-        });
-
-        viewScheduleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ScheduleDisplayFragment displayFragment = new ScheduleDisplayFragment();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("scheduleList", scheduleList);
-                displayFragment.setArguments(bundle);
-
-                // Use the ID 'flFragment' for fragment transactions
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.flFragment, displayFragment)
-                        .addToBackStack(null)
-                        .commit();
+            reader.close();
+            JSONArray jsonArray = new JSONArray(json.toString());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                locations.add(jsonArray.getString(i));
             }
-        });
-    }
-
-    private void addScheduleEntry() {
-        String course = courseName.getText().toString();
-        String professor = professorName.getText().toString();
-        String time = courseTime.getText().toString();
-        String days = courseDays.getText().toString();
-        String location = courseLocation.getText().toString();
-
-        // Validate inputs
-        if (course.isEmpty() || professor.isEmpty() || time.isEmpty() || days.isEmpty() || location.isEmpty()) {
-            Toast.makeText(getActivity(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
-            return;
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
         }
-
-        // Store the data
-        Map<String, String> scheduleEntry = new HashMap<>();
-        scheduleEntry.put("course", course);
-        scheduleEntry.put("professor", professor);
-        scheduleEntry.put("time", time);
-        scheduleEntry.put("days", days);
-        scheduleEntry.put("location", location);
-        scheduleList.add(scheduleEntry);
-
-        // Clear the input fields after adding
-        courseName.setText("");
-        professorName.setText("");
-        courseTime.setText("");
-        courseDays.setText("");
-        courseLocation.setText("");
-
-        Toast.makeText(getActivity(), "Schedule Added", Toast.LENGTH_SHORT).show();
+        return locations;
     }
 
-    private void navigateToScheduleDisplay() {
-        ScheduleDisplayFragment displayFragment = new ScheduleDisplayFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("scheduleList", scheduleList);
-        displayFragment.setArguments(bundle);
+    private void saveSchedule() {
+        String className = editTextClassName.getText().toString();
+        String professor = editTextProfessor.getText().toString();
+        String location = autoCompleteLocation.getText().toString();
+        String roomNumber = editTextRoomNumber.getText().toString();
 
-        // Replace this with your actual code to navigate to the new fragment
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.flFragment, displayFragment)
-                .addToBackStack(null)
-                .commit();
+        ScheduleEntity schedule = new ScheduleEntity();
+        schedule.className = className;
+        schedule.professor = professor;
+        schedule.location = location;
+        schedule.roomNumber = roomNumber;
+
+        new Thread(() -> db.scheduleDao().insert(schedule)).start();
     }
 }

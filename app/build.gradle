@@ -51,6 +51,19 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-analytics'
 
+    def room_version = "2.3.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    // optional - RxJava2 support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"
+    // optional - RxJava3 support for Room
+    implementation "androidx.room:room-rxjava3:$room_version"
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation "androidx.room:room-guava:$room_version"
+    // Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
+
+
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
 
@@ -58,3 +71,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
+
