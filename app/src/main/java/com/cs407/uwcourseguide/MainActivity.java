@@ -31,6 +31,13 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.xml.transform.OutputKeys;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView
@@ -38,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     BottomNavigationView bottomNavigationView;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+
+    String userOrGuest;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -75,11 +84,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // check if user logged in or continued as guest
         Intent intent = getIntent();
         String userOrGuest = intent.getStringExtra("userOrGuest");
-        if (userOrGuest == "user"){
-            // user
-        } else {
-            // guest
-        }
+        
 
         /*
         if userOrGuest is guest:
@@ -118,12 +123,37 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
         getSupportActionBar().hide();
+
+//        Statement st = null;
+//        Connection connection = null;
+//        try {
+//            connection = DriverManager.getConnection(
+//                    "jdbc:mariadb://localhost:3306/database_name",
+//                    "root", "saltyhayonwfneals@&13459"
+//            );
+//            String query = "SELECT * from courses";
+//            st = connection.createStatement();
+//            ResultSet rs = st.executeQuery(query);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (st != null) {
+//                    st.close();
+//                }
+//                connection.close();
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
     }
 
     HomePage firstFragment = new HomePage();
     SchedulePage secondFragment = new SchedulePage();
+    ScheduleGuestPage secondGuestFragment = new ScheduleGuestPage();
     LocationPage thirdFragment = new LocationPage();
     SettingsPage fourthFragment = new SettingsPage();
+    SettingsPageGuest fourthFragmentGuest = new SettingsPageGuest();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -136,22 +166,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     .replace(R.id.flFragment, firstFragment)
                     .commit();
             return true;
-        } else if (itemID == R.id.schedule) {
+        } else if (itemID == R.id.schedule && userOrGuest.equals("user")) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flFragment, secondFragment)
                     .commit();
             return true;
-        } else if (itemID == R.id.location) {
+        } else if (itemID == R.id.schedule && userOrGuest.equals("guest")) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.flFragment, secondGuestFragment)
+                    .commit();
+            return true;
+        }
+        else if (itemID == R.id.location) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flFragment, thirdFragment)
                     .commit();
             return true;
-        } else if (itemID == R.id.settings) {
+        } else if (itemID == R.id.settings && userOrGuest.equals("user")) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flFragment, fourthFragment)
+                    .commit();
+            return true;
+        } else if (itemID == R.id.settings && userOrGuest.equals("guest")){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.flFragment, fourthFragmentGuest)
                     .commit();
             return true;
         }
@@ -189,6 +232,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void goToWelcomePage() {
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
+    }
+    public void goToLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -36,7 +37,7 @@ public class SettingsPage extends Fragment {
         textVersionView.setText("Version " + versionName);
 
         Button logoutButton = rootView.findViewById(R.id.logoutButton);
-        logoutButton.setOnClickListener(view -> ((MainActivity) requireActivity()).goToWelcomePage());
+        logoutButton.setOnClickListener(view -> ((MainActivity) requireActivity()).goToLoginPage());
 
         // Personal Information Redirect
         ImageButton personalInfo = rootView.findViewById(R.id.personalInfoButton);
@@ -61,6 +62,15 @@ public class SettingsPage extends Fragment {
         // Register Account Redirect
         ImageButton registerAcc = rootView.findViewById(R.id.registerAccButton);
         registerAcc.setOnClickListener(view -> ((MainActivity) requireActivity()).goToRegisterAccount());
+
+        Context context = getContext();
+        SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase("users", Context.MODE_PRIVATE, null);
+        DBHelper dbHelper = new DBHelper(sqLiteDatabase);
+
+        // Set userNameSettings to the full name
+        TextView username = rootView.findViewById(R.id.userNameSettings);
+        String fullName = Util.getUsername(getContext());
+        username.setText("Hi " + fullName);
 
         return rootView;
     }

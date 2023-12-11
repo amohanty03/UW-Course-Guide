@@ -13,4 +13,14 @@ public class Util {
         SharedPreferences sharedPreferences = context.getSharedPreferences("com.cs407.uwcourseguide", Context.MODE_PRIVATE);
         sharedPreferences.edit().putString("token", "logged in").apply();
     }
+
+    public static void setUsername(Context context, String username) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("com.cs407.uwcourseguide", Context.MODE_PRIVATE);
+        sharedPreferences.edit().putString("username", username).apply();
+    }
+
+    public static String getUsername(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("com.cs407.uwcourseguide", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("username", null);
+    }
 }
