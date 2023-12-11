@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -38,8 +39,19 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.28'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:32.6.0')
+
+    // TODO: Add the dependencies for Firebase products you want to use
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation("com.google.firebase:firebase-database")
+
+    implementation 'com.google.firebase:firebase-analytics' // (Optional) Add Analytics if needed
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+
     // Room dependencies
-    def room_version = "2.4.3"
+    def room_version = "2.4.2"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version" // For Java projects
 

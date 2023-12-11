@@ -39,6 +39,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.FirebaseApp;
 
 
 import java.sql.Connection;
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (userOrGuest == null) {
             userOrGuest = "guest";
         }
-        
+
 
         /*
         if userOrGuest is guest:
