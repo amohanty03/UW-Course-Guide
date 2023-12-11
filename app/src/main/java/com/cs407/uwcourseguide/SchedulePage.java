@@ -6,9 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 import org.json.JSONArray;
@@ -26,12 +29,16 @@ public class SchedulePage extends Fragment {
     private AutoCompleteTextView autoCompleteLocation;
     private EditText editTextClassName, editTextProfessor, editTextRoomNumber;
 
+    private Button viewScheduleButton;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule_page, container, false);
 
         db = Room.databaseBuilder(getContext().getApplicationContext(), AppDatabase.class, "schedule-database").build();
-        scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+        ScheduleDao scheduleDao = db.scheduleDao();
+        ScheduleViewModelFactory viewModelFactory = new ScheduleViewModelFactory(scheduleDao);
+        scheduleViewModel = new ViewModelProvider(this, viewModelFactory).get(ScheduleViewModel.class);
 
         autoCompleteLocation = view.findViewById(R.id.autoCompleteLocation);
         editTextClassName = view.findViewById(R.id.courseName);
@@ -46,6 +53,8 @@ public class SchedulePage extends Fragment {
 
         // Handle save button click
         view.findViewById(R.id.submitSchedule).setOnClickListener(v -> saveSchedule());
+        viewScheduleButton = view.findViewById(R.id.viewSchedule);
+        viewScheduleButton.setOnClickListener(v -> navigateToScheduleDisplay());
 
         return view;
     }
@@ -84,5 +93,16 @@ public class SchedulePage extends Fragment {
         schedule.roomNumber = roomNumber;
 
         new Thread(() -> db.scheduleDao().insert(schedule)).start();
+    }
+
+    private void navigateToScheduleDisplay() {
+        ScheduleDisplayFragment displayFragment = new ScheduleDisplayFragment();
+
+
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.flFragment, displayFragment);
+        transaction.addToBackStack(null); // Optional - if you want to navigate back
+        transaction.commit();
     }
 }

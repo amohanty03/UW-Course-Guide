@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -24,12 +26,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.FirebaseApp;
 
 
 import java.sql.Connection;
@@ -37,6 +47,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import javax.xml.transform.OutputKeys;
 
@@ -47,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
     String userOrGuest;
+    public static List<String> coursesList;
+    public static List<String> professorsList;
+    public static Map<String, Professor> professorsDescMap;
+    public static Map<String, Course> coursesDescMap;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -69,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
         /*
         Depends what we want to do with guest:
             If guest data are all gone once app is close, then setToken before logging in or
@@ -83,8 +103,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // check if user logged in or continued as guest
         Intent intent = getIntent();
-        String userOrGuest = intent.getStringExtra("userOrGuest");
-        
+        userOrGuest = intent.getStringExtra("userOrGuest");
+        if (userOrGuest == null) {
+            userOrGuest = "guest";
+        }
+
 
         /*
         if userOrGuest is guest:
@@ -124,28 +147,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         getSupportActionBar().hide();
 
-//        Statement st = null;
-//        Connection connection = null;
-//        try {
-//            connection = DriverManager.getConnection(
-//                    "jdbc:mariadb://localhost:3306/database_name",
-//                    "root", "saltyhayonwfneals@&13459"
-//            );
-//            String query = "SELECT * from courses";
-//            st = connection.createStatement();
-//            ResultSet rs = st.executeQuery(query);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (st != null) {
-//                    st.close();
-//                }
-//                connection.close();
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+        fetchDataFromFirebase();
     }
 
     HomePage firstFragment = new HomePage();
@@ -155,12 +157,137 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     SettingsPage fourthFragment = new SettingsPage();
     SettingsPageGuest fourthFragmentGuest = new SettingsPageGuest();
 
+    private void fetchDataFromFirebase() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myCourses = database.getReference("courses");
+        DatabaseReference myProfs = database.getReference("professors");
+
+        myCourses.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                coursesList = new ArrayList<>();
+                coursesDescMap = new HashMap<>();
+
+                for (DataSnapshot courseSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot courseChildren : courseSnapshot.getChildren()) {
+                        coursesList.add(courseChildren.child("subject_abbrev").getValue(String.class) + " " + courseChildren.getKey());
+
+                        String courseTitle = courseChildren.child("subject_abbrev").getValue(String.class) + " " + courseChildren.getKey();
+                        String courseDesc = courseChildren.child("description").getValue(String.class);
+                        String cGPA = courseChildren.child("cumulative_gpa").getValue(String.class);
+                        String credits = courseChildren.child("credits").getValue(String.class);
+                        String requisites = courseChildren.child("requisites").getValue(String.class);
+                        String courseDesig = courseChildren.child("course_designation").getValue(String.class);
+                        String repeatCredit = courseChildren.child("repeatable").getValue(String.class);
+                        String lastTaught = courseChildren.child("last_taught").getValue(String.class);
+                        String crossList = (Objects.equals(courseChildren.child("crosslist_subjects").getValue(String.class), "N/A")) ?
+                                "None" : courseChildren.child("crosslist_subjects").getValue(String.class)+ " " + courseChildren.getKey();
+                        String title = courseChildren.child("title").getValue(String.class);
+
+                        // Check and set default value "N/A" for any null values
+                        courseTitle = (courseTitle != null) ? courseTitle : "N/A";
+                        courseDesc = (courseDesc != null) ? courseDesc : "N/A";
+                        cGPA = (cGPA != null) ? cGPA : "N/A";
+                        credits = (credits != null) ? credits : "N/A";
+                        requisites = (requisites != null) ? requisites : "N/A";
+                        courseDesig = (courseDesig != null) ? courseDesig : "N/A";
+                        repeatCredit = (repeatCredit != null) ? repeatCredit : "N/A";
+                        lastTaught = (lastTaught != null) ? lastTaught : "N/A";
+                        crossList = (crossList != null) ? crossList : "N/A";
+                        title = (title != null) ? title : "N/A";
+
+                        Course course = new Course(courseTitle, courseDesc, cGPA, credits, requisites, courseDesig, repeatCredit, lastTaught, crossList, title);
+
+                        coursesDescMap.put(courseTitle, course);
+                    }
+                }
+
+                // Update AutoCompleteTextView on the main thread
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateCourseCompleteTextView(coursesList);
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle the error
+            }
+        });
+
+        myProfs.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                professorsList = new ArrayList<>();
+                professorsDescMap = new HashMap<>();
+
+                for (DataSnapshot profSnapshot : dataSnapshot.getChildren()) {
+                    professorsList.add(profSnapshot.getKey());
+                    String professorKey = profSnapshot.getKey();
+                    String department = profSnapshot.child("Department").getValue(String.class);
+                    String overallRating = profSnapshot.child("Overall Rating").getValue(String.class);
+                    String school = profSnapshot.child("School").getValue(String.class);
+                    String wouldTakeAgain = profSnapshot.child("Would take again").getValue(String.class);
+                    String totalRatings = profSnapshot.child("Total Ratings").getValue(String.class);
+
+                    // Check and set default value "N/A" for any null values
+                    professorKey = (professorKey != null) ? professorKey : "N/A";
+                    department = (department != null) ? department : "N/A";
+                    overallRating = (overallRating != null) ? overallRating : "N/A";
+                    school = (school != null) ? school : "N/A";
+                    wouldTakeAgain = (wouldTakeAgain != null) ? wouldTakeAgain : "N/A";
+                    totalRatings = (totalRatings != null) ? totalRatings : "N/A";
+
+                    // Create a new Professor object
+                    Professor professor = new Professor(professorKey, department, school, overallRating, wouldTakeAgain, totalRatings);
+
+                    // Add the Professor object to the map with professor name as the key
+                    professorsDescMap.put(professor.getName(), professor);
+                }
+
+                // Update AutoCompleteTextView on the main thread
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateProfCompleteTextView(professorsList);
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle the error
+            }
+        });
+    }
+
+    private void updateProfCompleteTextView(List<String> dataList) {
+        // Assuming you have references to your AutoCompleteTextViews
+        AutoCompleteTextView profAutoCompleteTextView = findViewById(R.id.profTextView);
+
+        // Update AutoCompleteTextViews with the fetched data
+        if (profAutoCompleteTextView != null) {
+            ArrayAdapter<String> profAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, dataList);
+            profAutoCompleteTextView.setAdapter(profAdapter);
+        }
+    }
+
+    private void updateCourseCompleteTextView(List<String> dataList) {
+        // Assuming you have references to your AutoCompleteTextViews
+        AutoCompleteTextView coursesAutoCompleteTextView = findViewById(R.id.courseTextView);
+
+        if (coursesAutoCompleteTextView != null) {
+            ArrayAdapter<String> coursesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, dataList);
+            coursesAutoCompleteTextView.setAdapter(coursesAdapter);
+        }
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemID = item.getItemId();
 
         if (itemID == R.id.home) {
-
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flFragment, firstFragment)
@@ -238,5 +365,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void goToLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+    }
+    public void goToCourseFragment(){
+        //Intent intent = new Intent(this, )
     }
 }
