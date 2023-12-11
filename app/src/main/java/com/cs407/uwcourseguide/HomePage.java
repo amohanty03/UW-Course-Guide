@@ -1,6 +1,7 @@
 package com.cs407.uwcourseguide;
 
 import android.app.FragmentManager;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,6 +43,10 @@ public class HomePage extends Fragment implements ValueEventListener {
     private List<String> courseDescription = new ArrayList<>();
     Map<String, Object> courseToDescription = new HashMap<>();
 
+    AutoCompleteTextView autoCompleteTextView;
+    private Button coursesButton;
+    private Button professorsButton;
+
     public HomePage() {
         // Required empty public constructor
     }
@@ -52,42 +57,69 @@ public class HomePage extends Fragment implements ValueEventListener {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home_page, container, false);
 
-        AutoCompleteTextView autoCompleteTextView = rootView.findViewById(R.id.autoCompleteTextView);
+        //autoCompleteTextView = rootView.findViewById(R.id.autoCompleteTextView);
 
-        // run data retrieval in background thread
-        if (!alreadyRetrievedData){
-            executor.execute(() -> {
-                fetchDataFromDatabase(autoCompleteTextView);
-            });
-        }
+//        // run data retrieval in background thread
+//        if (!alreadyRetrievedData){
+//            executor.execute(() -> {
+//                fetchDataFromDatabase(autoCompleteTextView);
+//            });
+//        }
+//
+//        Button courseButton = rootView.findViewById(R.id.btnCourses);
+//        //courseButton.setOnClickListener(view -> ((MainActivity) requireActivity()).goToLoginPage());
+//        courseButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CoursesFragment coursesFragment = new CoursesFragment();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.fragmentContainerView, CoursesFragment.class, null)
+//                        .setReorderingAllowed(true)
+//                        .addToBackStack("showing Course fragment")
+//                        .commit();
+//            }
+//        });
+//        Button profButton = rootView.findViewById(R.id.btnProfessor);
+//        profButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CoursesFragment coursesFragment = new CoursesFragment();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.fragmentContainerView, ProfessorsFragment.class, null)
+//                        .setReorderingAllowed(true)
+//                        .addToBackStack("showing Course fragment")
+//                        .commit();
+//            }
+//        });
+        // Initialize buttons
+        coursesButton = rootView.findViewById(R.id.coursesButton);
+        professorsButton = rootView.findViewById(R.id.professorsButton);
 
-        Button courseButton = rootView.findViewById(R.id.btnCourses);
-        //courseButton.setOnClickListener(view -> ((MainActivity) requireActivity()).goToLoginPage());
-        courseButton.setOnClickListener(new View.OnClickListener() {
+        // Set click listeners for buttons
+        coursesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CoursesFragment coursesFragment = new CoursesFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainerView, CoursesFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("showing Course fragment")
-                        .commit();
-            }
-        });
-        Button profButton = rootView.findViewById(R.id.btnProfessor);
-        profButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CoursesFragment coursesFragment = new CoursesFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainerView, ProfessorsFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("showing Course fragment")
-                        .commit();
+//                AutoCompleteTextView a1 = findViewById(R.id.courseTextView);
+//                a1.setHint("Enter course number such as DS XXX...");
+                replaceFragment(new CoursesFragment());
             }
         });
 
+        professorsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new ProfessorsFragment());
+            }
+        });
+
+        //replaceFragment(new CoursesFragment());
         return rootView;
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
     }
 
     // DATASNAPSHOT:DataSnapshot { key = 1, value = {last_taught=Spring 2015, number=1, cumulative_gpa=null, credits=1 credit., crosslist_subjects=null, repeatable=Yes, unlimited number of completions, description=Full-time off-campus work experience which combines classroom theory with practical knowledge of operations to provide students with a background upon which to base a professional career. Students receive credit only for the term in which they are actively enrolled and working. The same work experience may not count towards credit in A A E 399. Students must have a declared major in Agricultural and Applied Economics or Agricultural Business Management and will require consent of the supervising instructor and academic advisor. , subject_abbrev=A A E, title=COOPERATIVE EDUCATION/CO-OP IN AGRICULTURAL & APPLIED ECONOMICS, course_designation=Workplace - Workplace Experience Course, full_subject_name=Agricultural and Applied Economics, requisites=Consent of instructor} }
@@ -149,20 +181,26 @@ public class HomePage extends Fragment implements ValueEventListener {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedCourse = autoCompleteTextView.getText().toString();
-                Log.d("CourseInfo", "~~~~~~~~~~~~~~~~~~~~~~~COURSES SELECTED:" + selectedCourse + "~~~~~~~~~~~");
-                //courseDescription.add(selectedCourse);
-                Object value = courseToDescription.get(selectedCourse);
-                CoursesFragment coursesFragment = new CoursesFragment();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("courseList", (Serializable) value);
-                coursesFragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainerView, coursesFragment)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("showing Course fragment")
-                        .commit();
+//                String selectedCourse = autoCompleteTextView.getText().toString();
+//                Log.d("CourseInfo", "~~~~~~~~~~~~~~~~~~~~~~~COURSES SELECTED:" + selectedCourse + "~~~~~~~~~~~");
+//                //courseDescription.add(selectedCourse);
+//                Object value = courseToDescription.get(selectedCourse);
+//                CoursesFragment coursesFragment = new CoursesFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("courseList", (Serializable) value);
+//                coursesFragment.setArguments(bundle);
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.fragmentContainerView, coursesFragment)
+//                        .setReorderingAllowed(true)
+//                        .addToBackStack("showing Course fragment")
+//                        .commit();
             }
         });
+    }
+
+    public void setDataFromFirebase(List<String> coursesList) {
+        // Use the data received from MainActivity
+        // Perform any additional setup or processing if needed
+        populateAutoCompleteTextView(coursesList, autoCompleteTextView);
     }
 }

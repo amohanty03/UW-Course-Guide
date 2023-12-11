@@ -5,9 +5,106 @@
     android:layout_height="match_parent"
     tools:context=".ProfessorsFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"/>
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <AutoCompleteTextView
+                android:id="@+id/profTextView"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:dropDownHeight="wrap_content"
+                android:hint="Enter professor name..."
+                android:textColorHint="@color/gray"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/profTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profTextView"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="15dp"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/profDept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profTitle"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/profSchool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profDept"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/ratings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profSchool"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"/>
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ratings"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"
+                android:progressTint="@color/red_primary"
+                android:progressBackgroundTint="@color/red_translucent"/>
+
+            <TextView
+                android:id="@+id/likeliness"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ratingBar"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/totalRatings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/likeliness"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="15dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold|italic" />
+
+
+        </RelativeLayout>
+    </ScrollView>
 
 </FrameLayout>

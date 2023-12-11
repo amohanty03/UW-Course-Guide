@@ -2,12 +2,20 @@ package com.cs407.uwcourseguide;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +71,7 @@ public class CoursesFragment extends Fragment {
             //mParam2 = getArguments().getString(ARG_PARAM2);
             //courseList = (ArrayList<String>) getArguments().getSerializable("courseList");
             //courseToDescription = (Map<String, Object>) getArguments().getSerializable("courseList");
-            courseInfos = ((Object) getArguments().getSerializable("courseList"));
+            //courseInfos = ((Object) getArguments().getSerializable("courseList"));
         }
     }
 
@@ -72,32 +80,72 @@ public class CoursesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
-        TextView courseText = view.findViewById(R.id.textView12);
+        //TextView courseText = view.findViewById(R.id.textView12);
         //String firstCourse = courseList.get(0);
         String courseDescription = "";
+        courseList = MainActivity.coursesList;
+
+        AutoCompleteTextView courseAutoCompleteTextView = view.findViewById(R.id.courseTextView);
+
+        // Update AutoCompleteTextViews with the fetched data
+        if (courseAutoCompleteTextView != null) {
+            Log.e("error", "come hereeeeeeeeeeeeeeeeeeeeeeeeeeeee2");
+            ArrayAdapter<String> courseAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, courseList);
+            courseAutoCompleteTextView.setAdapter(courseAdapter);
+        }
 
 //        for (Map.Entry<String, Object> entry: courseToDescription.entrySet()) {
 //            String key = entry.getKey();
 //            Object value = entry.getValue();
 
-        Map<String, Object> nestedMap = (Map<String, Object>) courseInfos;
-        String key = ((String) nestedMap.get("number"));
-        String course =  ( (String) nestedMap.get("subject_abbrev") + key);
-        String lastTaught = (String) nestedMap.get("last_taught");
-        String cumulativeGPA = (String) nestedMap.get("cumulative_gpa");
-        String credits = (String) nestedMap.get("credits");
-        String crosslist_subjects = (String) nestedMap.get("crosslist_subjects");
-        String repeatable = (String) nestedMap.get("repeatable");
-        String description = (String) nestedMap.get("description");
-        String title = (String) nestedMap.get("credits");
-        String course_designation = (String) nestedMap.get("course_designation");
-        String requisites = (String) nestedMap.get("requisites");
-        courseDescription =
-                String.format(
-                        "Course: %s\n\nTitle: %s\n\nDescription: %s\n\nCourse description: %s\n\nLast taught: %s\n\nCumulative GPA: %s\n\nCredits: %s\n\nCrosslist subjects: %s\n\nRepeatable: %s\n\nRequisites: %s",
-                        course, title, description, course_designation, lastTaught, cumulativeGPA, credits, crosslist_subjects, repeatable, requisites);
+//        Map<String, Object> nestedMap = (Map<String, Object>) courseInfos;
+//        String key = ((String) nestedMap.get("number"));
+//        String course =  ( (String) nestedMap.get("subject_abbrev") + key);
+//        String lastTaught = (String) nestedMap.get("last_taught");
+//        String cumulativeGPA = (String) nestedMap.get("cumulative_gpa");
+//        String credits = (String) nestedMap.get("credits");
+//        String crosslist_subjects = (String) nestedMap.get("crosslist_subjects");
+//        String repeatable = (String) nestedMap.get("repeatable");
+//        String description = (String) nestedMap.get("description");
+//        String title = (String) nestedMap.get("credits");
+//        String course_designation = (String) nestedMap.get("course_designation");
+//        String requisites = (String) nestedMap.get("requisites");
+//        courseDescription =
+//                String.format(
+//                        "Course: %s\n\nTitle: %s\n\nDescription: %s\n\nCourse description: %s\n\nLast taught: %s\n\nCumulative GPA: %s\n\nCredits: %s\n\nCrosslist subjects: %s\n\nRepeatable: %s\n\nRequisites: %s",
+//                        course, title, description, course_designation, lastTaught, cumulativeGPA, credits, crosslist_subjects, repeatable, requisites);
 //        }
-        courseText.setText(courseDescription);
+        //courseText.setText(courseDescription);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Button firstToastButton = view.findViewById(R.id.firstToastButton);
+        firstToastButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (hasItemsInAutoCompleteTextView()) {
+                    Toast.makeText(getActivity(), "AutoCompleteTextView has items!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "AutoCompleteTextView is empty!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private boolean hasItemsInAutoCompleteTextView() {
+        // Assuming you have a reference to your AutoCompleteTextView
+        AutoCompleteTextView autoCompleteTextView = getView().findViewById(R.id.courseTextView);
+
+        if (autoCompleteTextView != null) {
+            ListAdapter adapter = autoCompleteTextView.getAdapter();
+            if (adapter != null) {
+                int itemCount = adapter.getCount();
+                return itemCount > 0;
+            }
+        }
+
+        return false;
     }
 }

@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CoursesFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/textView12"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="34sp" />
+            android:layout_height="match_parent">
+
+            <AutoCompleteTextView
+                android:id="@+id/courseTextView"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:dropDownHeight="wrap_content"
+                android:hint="Enter course number such as DS XXX..."
+                android:textColorHint="@color/gray"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/firstToastButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Courses Fragment" />
+        </RelativeLayout>
     </ScrollView>
 
 </FrameLayout>
