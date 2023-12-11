@@ -101,7 +101,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold" />
 
 
         </RelativeLayout>

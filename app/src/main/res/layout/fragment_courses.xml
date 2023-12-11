@@ -21,18 +21,210 @@
                 android:layout_centerHorizontal="true"
                 android:drawableStart="@android:drawable/ic_menu_search"
                 android:dropDownHeight="wrap_content"
-                android:hint="Enter course number such as DS XXX..."
+                android:hint="Enter course such as DS XXX..."
                 android:textColorHint="@color/gray"
                 android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/firstToastButton"
+            <TextView
+                android:id="@+id/courseTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/courseTextView"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="Courses Fragment" />
+                android:paddingBottom="15dp"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/courseDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/courseTitle"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/gpaTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/courseDesc"
+                android:textSize="15sp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/cgpa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/gpaTitle"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/creditsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cgpa"
+                android:textSize="15sp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/credits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/creditsTitle"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/reqsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/credits"
+                android:textSize="15sp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/reqs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reqsTitle"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/coursedesigTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reqs"
+                android:textSize="15sp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/coursedesig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/coursedesigTitle"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/repeatTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/coursedesig"
+                android:textSize="15sp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/repeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/repeatTitle"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/lastTaughtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/repeat"
+                android:textSize="15sp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/lastTaught"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lastTaughtTitle"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/crossListTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lastTaught"
+                android:textSize="15sp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+            <TextView
+                android:id="@+id/crossList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/crossListTitle"
+                android:textSize="15sp"
+                android:paddingBottom="15dp"
+                android:textColor="@color/black"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                />
+
+
         </RelativeLayout>
     </ScrollView>
-
 </FrameLayout>

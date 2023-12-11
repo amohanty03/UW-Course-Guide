@@ -6,10 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -33,9 +37,24 @@ public class CoursesFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private List<String> courseList = new ArrayList<>();
-    private Map<String, Object> courseToDescription;
-
-    private Object courseInfos;
+    AutoCompleteTextView courseAutoCompleteTextView;
+    ArrayAdapter<String> courseAdapter;
+    TextView courseTitle;
+    TextView courseDesc;
+    TextView cGPATitle;
+    TextView cGPA;
+    TextView creditsTitle;
+    TextView credits;
+    TextView requisitesTitle;
+    TextView requisites;
+    TextView courseDesigTitle;
+    TextView courseDesig;
+    TextView repeatCreditTitle;
+    TextView repeatCredit;
+    TextView lastTaughtTitle;
+    TextView lastTaught;
+    TextView crossListTitle;
+    TextView crossList;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -67,11 +86,8 @@ public class CoursesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            //mParam1 = getArguments().getString(ARG_PARAM1);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
-            //courseList = (ArrayList<String>) getArguments().getSerializable("courseList");
-            //courseToDescription = (Map<String, Object>) getArguments().getSerializable("courseList");
-            //courseInfos = ((Object) getArguments().getSerializable("courseList"));
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -80,72 +96,60 @@ public class CoursesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
-        //TextView courseText = view.findViewById(R.id.textView12);
-        //String firstCourse = courseList.get(0);
-        String courseDescription = "";
         courseList = MainActivity.coursesList;
-
-        AutoCompleteTextView courseAutoCompleteTextView = view.findViewById(R.id.courseTextView);
+        courseAutoCompleteTextView = view.findViewById(R.id.courseTextView);
 
         // Update AutoCompleteTextViews with the fetched data
         if (courseAutoCompleteTextView != null) {
-            Log.e("error", "come hereeeeeeeeeeeeeeeeeeeeeeeeeeeee2");
-            ArrayAdapter<String> courseAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, courseList);
+            courseAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, courseList);
             courseAutoCompleteTextView.setAdapter(courseAdapter);
-        }
 
-//        for (Map.Entry<String, Object> entry: courseToDescription.entrySet()) {
-//            String key = entry.getKey();
-//            Object value = entry.getValue();
-
-//        Map<String, Object> nestedMap = (Map<String, Object>) courseInfos;
-//        String key = ((String) nestedMap.get("number"));
-//        String course =  ( (String) nestedMap.get("subject_abbrev") + key);
-//        String lastTaught = (String) nestedMap.get("last_taught");
-//        String cumulativeGPA = (String) nestedMap.get("cumulative_gpa");
-//        String credits = (String) nestedMap.get("credits");
-//        String crosslist_subjects = (String) nestedMap.get("crosslist_subjects");
-//        String repeatable = (String) nestedMap.get("repeatable");
-//        String description = (String) nestedMap.get("description");
-//        String title = (String) nestedMap.get("credits");
-//        String course_designation = (String) nestedMap.get("course_designation");
-//        String requisites = (String) nestedMap.get("requisites");
-//        courseDescription =
-//                String.format(
-//                        "Course: %s\n\nTitle: %s\n\nDescription: %s\n\nCourse description: %s\n\nLast taught: %s\n\nCumulative GPA: %s\n\nCredits: %s\n\nCrosslist subjects: %s\n\nRepeatable: %s\n\nRequisites: %s",
-//                        course, title, description, course_designation, lastTaught, cumulativeGPA, credits, crosslist_subjects, repeatable, requisites);
-//        }
-        //courseText.setText(courseDescription);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Button firstToastButton = view.findViewById(R.id.firstToastButton);
-        firstToastButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (hasItemsInAutoCompleteTextView()) {
-                    Toast.makeText(getActivity(), "AutoCompleteTextView has items!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "AutoCompleteTextView is empty!", Toast.LENGTH_SHORT).show();
+            courseTitle = view.findViewById(R.id.courseTitle);
+            courseDesc = view.findViewById(R.id.courseDesc);
+            cGPATitle = view.findViewById(R.id.gpaTitle);
+            cGPA = view.findViewById(R.id.cgpa);
+            creditsTitle = view.findViewById(R.id.creditsTitle);
+            credits = view.findViewById(R.id.credits);
+            requisitesTitle = view.findViewById(R.id.reqsTitle);
+            requisites = view.findViewById(R.id.reqs);
+            courseDesigTitle = view.findViewById(R.id.coursedesigTitle);
+            courseDesig = view.findViewById(R.id.coursedesig);
+            repeatCreditTitle = view.findViewById(R.id.repeatTitle);
+            repeatCredit = view.findViewById(R.id.repeat);
+            lastTaughtTitle = view.findViewById(R.id.lastTaughtTitle);
+            lastTaught = view.findViewById(R.id.lastTaught);
+            crossListTitle = view.findViewById(R.id.crossListTitle);
+            crossList = view.findViewById(R.id.crossList);
+            courseAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // Handle the item click here
+                    String selectedCourse = (String) parent.getItemAtPosition(position);
+                    Course targetCourse = MainActivity.coursesDescMap.get(selectedCourse);
+                    String error = "Something went wrong!";
+                    if (targetCourse != null) {
+                        courseTitle.setText(targetCourse.getCourseTitle() + ": " + targetCourse.getTitle());
+                        courseDesc.setText(targetCourse.getCourseDescription());
+                        cGPATitle.setText("Cumulative GPA");
+                        cGPA.setText(targetCourse.getcGPA());
+                        creditsTitle.setText("Credits");
+                        credits.setText(targetCourse.getCredits());
+                        requisitesTitle.setText("Requisities");
+                        requisites.setText(targetCourse.getRequisites());
+                        courseDesigTitle.setText("Course Designation");
+                        courseDesig.setText(targetCourse.getCourseDesignation());
+                        repeatCreditTitle.setText("Repeatable for Credit");
+                        repeatCredit.setText(targetCourse.getRepeatCredit());
+                        lastTaughtTitle.setText("Last Taught");
+                        lastTaught.setText(targetCourse.getLastTaught());
+                        crossListTitle.setText("Cross-listed Subjects");
+                        crossList.setText(targetCourse.getCrossList());
+                    } else {
+                        courseTitle.setText(error);
+                    }
                 }
-            }
-        });
-    }
-
-    private boolean hasItemsInAutoCompleteTextView() {
-        // Assuming you have a reference to your AutoCompleteTextView
-        AutoCompleteTextView autoCompleteTextView = getView().findViewById(R.id.courseTextView);
-
-        if (autoCompleteTextView != null) {
-            ListAdapter adapter = autoCompleteTextView.getAdapter();
-            if (adapter != null) {
-                int itemCount = adapter.getCount();
-                return itemCount > 0;
-            }
+            });
         }
-
-        return false;
+        return view;
     }
 }

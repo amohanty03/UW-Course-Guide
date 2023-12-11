@@ -23,6 +23,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,11 +43,9 @@ public class ProfessorsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private List<Professor> professors;
+    private List<String> profList = new ArrayList<>();
     AutoCompleteTextView profAutoCompleteTextView;
     ArrayAdapter<String> profAdapter;
-    Map<String, Professor> professorMap = new HashMap<>();
-
     TextView profName;
     TextView profDept;
     TextView profSchool;
@@ -91,14 +90,8 @@ public class ProfessorsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_professors, container, false);
-        List<String> profList = MainActivity.professorsList;
+        profList = MainActivity.professorsList;
         profAutoCompleteTextView = view.findViewById(R.id.profTextView);
-
-//        professors = MainActivity.professorsDesc;
-//        Log.e("error", String.valueOf(professors.size()));
-//        for (Professor professor : professors) {
-//            professorMap.put(professor.getName(), professor);
-//        }
 
         // Update AutoCompleteTextViews with the fetched data
         if (profAutoCompleteTextView != null) {
@@ -142,42 +135,9 @@ public class ProfessorsFragment extends Fragment {
                     } else {
                         profName.setText(error);
                     }
-                    // Do something with the selected professor
-                    Log.e("SelectedProfessor", selectedProfessor);
-                    // For example, you can open a new fragment or perform some other action
                 }
             });
         }
         return view;
-    }
-
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-////        Button secondToastButton = view.findViewById(R.id.secondToastButton);
-////        secondToastButton.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View view) {
-////                if (hasItemsInAutoCompleteTextView()) {
-////                    Toast.makeText(getActivity(), "AutoCompleteTextView has items!", Toast.LENGTH_SHORT).show();
-////                } else {
-////                    Toast.makeText(getActivity(), "AutoCompleteTextView is empty!", Toast.LENGTH_SHORT).show();
-////                }
-////            }
-////        })
-//    }
-
-    private boolean hasItemsInAutoCompleteTextView() {
-        // Assuming you have a reference to your AutoCompleteTextView
-        AutoCompleteTextView autoCompleteTextView = getView().findViewById(R.id.profTextView);
-
-        if (autoCompleteTextView != null) {
-            ListAdapter adapter = autoCompleteTextView.getAdapter();
-            if (adapter != null) {
-                int itemCount = adapter.getCount();
-                return itemCount > 0;
-            }
-        }
-
-        return false;
     }
 }

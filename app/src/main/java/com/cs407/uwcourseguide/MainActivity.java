@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     String userOrGuest;
     public static List<String> coursesList;
     public static List<String> professorsList;
-    public static List<Professor> professorsDesc = new ArrayList<>();
     public static Map<String, Professor> professorsDescMap;
+    public static Map<String, Course> coursesDescMap;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
         /*
         Depends what we want to do with guest:
             If guest data are all gone once app is close, then setToken before logging in or
@@ -164,10 +165,39 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 coursesList = new ArrayList<>();
+                coursesDescMap = new HashMap<>();
 
                 for (DataSnapshot courseSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot courseChildren : courseSnapshot.getChildren()) {
                         coursesList.add(courseChildren.child("subject_abbrev").getValue(String.class) + " " + courseChildren.getKey());
+
+                        String courseTitle = courseChildren.child("subject_abbrev").getValue(String.class) + " " + courseChildren.getKey();
+                        String courseDesc = courseChildren.child("description").getValue(String.class);
+                        String cGPA = courseChildren.child("cumulative_gpa").getValue(String.class);
+                        String credits = courseChildren.child("credits").getValue(String.class);
+                        String requisites = courseChildren.child("requisites").getValue(String.class);
+                        String courseDesig = courseChildren.child("course_designation").getValue(String.class);
+                        String repeatCredit = courseChildren.child("repeatable").getValue(String.class);
+                        String lastTaught = courseChildren.child("last_taught").getValue(String.class);
+                        String crossList = (Objects.equals(courseChildren.child("crosslist_subjects").getValue(String.class), "N/A")) ?
+                                "None" : courseChildren.child("crosslist_subjects").getValue(String.class)+ " " + courseChildren.getKey();
+                        String title = courseChildren.child("title").getValue(String.class);
+
+                        // Check and set default value "N/A" for any null values
+                        courseTitle = (courseTitle != null) ? courseTitle : "N/A";
+                        courseDesc = (courseDesc != null) ? courseDesc : "N/A";
+                        cGPA = (cGPA != null) ? cGPA : "N/A";
+                        credits = (credits != null) ? credits : "N/A";
+                        requisites = (requisites != null) ? requisites : "N/A";
+                        courseDesig = (courseDesig != null) ? courseDesig : "N/A";
+                        repeatCredit = (repeatCredit != null) ? repeatCredit : "N/A";
+                        lastTaught = (lastTaught != null) ? lastTaught : "N/A";
+                        crossList = (crossList != null) ? crossList : "N/A";
+                        title = (title != null) ? title : "N/A";
+
+                        Course course = new Course(courseTitle, courseDesc, cGPA, credits, requisites, courseDesig, repeatCredit, lastTaught, crossList, title);
+
+                        coursesDescMap.put(courseTitle, course);
                     }
                 }
 
@@ -212,9 +242,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     // Create a new Professor object
                     Professor professor = new Professor(professorKey, department, school, overallRating, wouldTakeAgain, totalRatings);
 
-                    // Add the professor name to the list
-                    //professorsList.add(professor.getName());
-
                     // Add the Professor object to the map with professor name as the key
                     professorsDescMap.put(professor.getName(), professor);
                 }
@@ -237,12 +264,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void updateProfCompleteTextView(List<String> dataList) {
         // Assuming you have references to your AutoCompleteTextViews
-        //Log.e("error", String.valueOf(dataList.size()));
         AutoCompleteTextView profAutoCompleteTextView = findViewById(R.id.profTextView);
 
         // Update AutoCompleteTextViews with the fetched data
         if (profAutoCompleteTextView != null) {
-            //Log.e("error", "come hereeeeeeeeeeeeeeeeeeeeeeeeeeeee1");
             ArrayAdapter<String> profAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, dataList);
             profAutoCompleteTextView.setAdapter(profAdapter);
         }
@@ -250,11 +275,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void updateCourseCompleteTextView(List<String> dataList) {
         // Assuming you have references to your AutoCompleteTextViews
-        //Log.e("error", String.valueOf(dataList.size()));
         AutoCompleteTextView coursesAutoCompleteTextView = findViewById(R.id.courseTextView);
 
         if (coursesAutoCompleteTextView != null) {
-            //Log.e("error", "come hereeeeeeeeeeeeeeeeeeeeeeeeeeeee2");
             ArrayAdapter<String> coursesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, dataList);
             coursesAutoCompleteTextView.setAdapter(coursesAdapter);
         }
