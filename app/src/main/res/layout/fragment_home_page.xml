@@ -1,90 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    tools:context=".MainActivity">
 
-    <!-- Top bar with app title and a '+' button -->
-    <RelativeLayout
-        android:id="@+id/topBarLayout"
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/_825f874a0476ae10d78109a2ff07e9e" />
+
+    <TextView
+        android:id="@+id/home_heading"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="#D32F2F">
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="UW Course Guide"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/white"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/btnAdd"/>
-
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            android:textSize="24sp"
-            android:layout_alignParentRight="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@android:color/white"/>
-    </RelativeLayout>
-
-    <!-- Segmented control for 'Courses' and 'Professor' tabs -->
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="UW Course Guide"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:typeface="sans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
-        android:id="@+id/segmentedControlLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/topBarLayout"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnCourses"
-            android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/home_heading"
+        android:paddingTop="60dp"
+        android:orientation="vertical">
+        <!-- Segmented control for 'Courses' and 'Professor' tabs -->
+        <LinearLayout
+            android:id="@+id/segmentedControlLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:text="Courses"
-            android:textColor="@android:color/black" />
+            android:layout_below="@id/home_heading"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnProfessor"
-            android:layout_width="0dp"
+            <Button
+                android:id="@+id/coursesButton"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Courses"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/red_primary"/>
+
+            <Button
+                android:id="@+id/professorsButton"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="Professor"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/red_primary" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#0000"
-            android:text="Professor"
-            android:textColor="@android:color/black" />
+            android:background="@drawable/rounded_corners">
+
+            <FrameLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
     </LinearLayout>
 
     <!-- Search bar -->
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/segmentedControlLayout"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:drawableLeft="@android:drawable/ic_menu_search"
-        android:drawablePadding="10dp"
-        android:hint="Enter course number, professor name..."
-        android:padding="12dp"
-        android:textColor="@color/black"
-        android:dropDownHeight="wrap_content"/>
 
     <!-- Instructional text -->
-    <TextView
-        android:id="@+id/tvInstructions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/autoCompleteTextView"
-        android:text="1. Select a tab 'Courses' or 'Professors' at the top of the screen.\n2. Type a course or professor you'd like to search.\n3. Click the icon to add your review."
-        android:padding="8dp"/>
 
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,8 +30,8 @@ public class SettingsPageGuest extends Fragment {
 
         // Set userNameSettings to the full name
         TextView username = rootView.findViewById(R.id.userNameSettings);
-        String fullName = Util.getUsername(getContext());
-        username.setText("Hi " + fullName);
+        String fullName = "Guest";
+        username.setText("Hi " + fullName +"!");
 
         return rootView;
     }

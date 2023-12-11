@@ -2,11 +2,31 @@ package com.cs407.uwcourseguide;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +43,16 @@ public class ProfessorsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private List<String> profList = new ArrayList<>();
+    AutoCompleteTextView profAutoCompleteTextView;
+    ArrayAdapter<String> profAdapter;
+    TextView profName;
+    TextView profDept;
+    TextView profSchool;
+    TextView profRatings;
+    TextView profLikeliness;
+    TextView profTotalRatings;
+    RatingBar profRating;
 
     public ProfessorsFragment() {
         // Required empty public constructor
@@ -59,6 +89,55 @@ public class ProfessorsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_professors, container, false);
+        View view = inflater.inflate(R.layout.fragment_professors, container, false);
+        profList = MainActivity.professorsList;
+        profAutoCompleteTextView = view.findViewById(R.id.profTextView);
+
+        // Update AutoCompleteTextViews with the fetched data
+        if (profAutoCompleteTextView != null) {
+            profAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, profList);
+            profAutoCompleteTextView.setAdapter(profAdapter);
+
+            profName = view.findViewById(R.id.profTitle);
+            profDept = view.findViewById(R.id.profDept);
+            profSchool = view.findViewById(R.id.profSchool);
+            profRatings = view.findViewById(R.id.ratings);
+            profLikeliness = view.findViewById(R.id.likeliness);
+            profTotalRatings = view.findViewById(R.id.totalRatings);
+            profRating = view.findViewById(R.id.ratingBar);
+            profAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // Handle the item click here
+                    String selectedProfessor = (String) parent.getItemAtPosition(position);
+                    Professor targetProfessor = MainActivity.professorsDescMap.get(selectedProfessor);
+                    String error = "Something went wrong!";
+                    if (targetProfessor != null) {
+                        profName.setText(selectedProfessor);
+                        profDept.setText("Professor in the " + targetProfessor.getDepartment());
+                        profSchool.setText(targetProfessor.getSchool());
+                        try {
+                            float val = Float.parseFloat(targetProfessor.getRatings());
+                            profRating.setVisibility(View.VISIBLE);
+                            profRating.setRating(val);
+                            profRatings.setText("Rating: " + val + "/5.0");
+                        } catch (NumberFormatException e) {
+                            profRating.setVisibility(View.VISIBLE);
+                            profRating.setRating(0.0F);
+                            profRatings.setText("Rating: " + "0.0/5.0");
+                        }
+                        profLikeliness.setText("Would take again: " + targetProfessor.getLikeliness());
+
+                        String underlinedText = "Based on " + targetProfessor.getTotalRatings() + " reviews";
+                        SpannableString underlinedContent = new SpannableString(underlinedText);
+                        underlinedContent.setSpan(new UnderlineSpan(), 0, underlinedContent.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        profTotalRatings.setText(underlinedContent);
+                    } else {
+                        profName.setText(error);
+                    }
+                }
+            });
+        }
+        return view;
     }
 }
