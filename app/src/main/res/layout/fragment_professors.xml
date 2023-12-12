@@ -76,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ratings"
                 android:layout_centerHorizontal="true"
+                android:isIndicator="true"
                 android:visibility="invisible"
                 android:progressTint="@color/red_primary"
                 android:progressBackgroundTint="@color/red_translucent"/>
