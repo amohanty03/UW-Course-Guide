@@ -37,7 +37,14 @@ public class SettingsPage extends Fragment {
         textVersionView.setText("Version " + versionName);
 
         Button logoutButton = rootView.findViewById(R.id.logoutButton);
-        logoutButton.setOnClickListener(view -> ((MainActivity) requireActivity()).goToLoginPage());
+        logoutButton.setOnClickListener(view -> {
+            // Navigate to the login page
+            ((MainActivity) requireActivity()).goToLoginPage();
+
+            // Finish the current activity (logout page)
+            requireActivity().finish();
+        });
+
 
         // Personal Information Redirect
         ImageButton personalInfo = rootView.findViewById(R.id.personalInfoButton);
