@@ -27,9 +27,13 @@ public class SchedulePage extends Fragment {
     private AppDatabase db;
     private ScheduleViewModel scheduleViewModel;
     private AutoCompleteTextView autoCompleteLocation;
-    private EditText editTextClassName, editTextProfessor, editTextRoomNumber;
+    private EditText editTextClassName, editTextProfessor, editTextRoomNumber, editTextCourseTime, editTextCourseDays;
 
     private Button viewScheduleButton;
+
+
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +48,9 @@ public class SchedulePage extends Fragment {
         editTextClassName = view.findViewById(R.id.courseName);
         editTextProfessor = view.findViewById(R.id.professorName);
         editTextRoomNumber = view.findViewById(R.id.editTextRoomNumber);
+        editTextCourseTime = view.findViewById(R.id.courseTime);
+        editTextCourseDays = view.findViewById(R.id.courseDays);
+        editTextRoomNumber = view.findViewById(R.id.editTextRoomNumber);
 
         // Load locations into the AutoCompleteTextView from JSON file
         List<String> locations = loadLocationsFromJsonFile();
@@ -51,10 +58,23 @@ public class SchedulePage extends Fragment {
         autoCompleteLocation.setAdapter(adapter);
         autoCompleteLocation.setThreshold(1); // Start filtering from one character
 
-        // Handle save button click
-        view.findViewById(R.id.submitSchedule).setOnClickListener(v -> saveSchedule());
+        Button submitButton = view.findViewById(R.id.submitSchedule);
+        submitButton.setOnClickListener(v -> {
+            saveSchedule();
+            clearInputFields();
+        });
+
+
         viewScheduleButton = view.findViewById(R.id.viewSchedule);
         viewScheduleButton.setOnClickListener(v -> navigateToScheduleDisplay());
+
+        Button btnNavigateToRemoveCourse = view.findViewById(R.id.btnNavigateToRemoveCourse);
+        btnNavigateToRemoveCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToRemoveCoursePage();
+            }
+        });
 
         return view;
     }
@@ -105,4 +125,24 @@ public class SchedulePage extends Fragment {
         transaction.addToBackStack(null); // Optional - if you want to navigate back
         transaction.commit();
     }
+
+    private void navigateToRemoveCoursePage() {
+        RemoveCourseFragment removeCourseFragment = new RemoveCourseFragment();
+
+        // Assuming you are using the FragmentManager for navigation
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.flFragment, removeCourseFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void clearInputFields() {
+        editTextClassName.setText("");
+        editTextProfessor.setText("");
+        editTextCourseTime.setText("");
+        editTextCourseDays.setText("");
+        editTextRoomNumber.setText("");
+        autoCompleteLocation.setText("");
+    }
 }
+

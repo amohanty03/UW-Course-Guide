@@ -29,4 +29,6 @@ public class ScheduleViewModel extends ViewModel {
     public void clearAllSchedules() {
         new Thread(() -> scheduleDao.deleteAll()).start();
     }
+
+
 }
