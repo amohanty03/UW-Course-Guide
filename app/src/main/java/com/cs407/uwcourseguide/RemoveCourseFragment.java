@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -59,9 +60,12 @@ public class RemoveCourseFragment extends Fragment {
 
     private void removeSelectedCourse() {
         int position = spinnerCourses.getSelectedItemPosition();
+        String courseToDel;
         if (position >= 0 && position < courseList.size()) {
             ScheduleEntity selectedCourse = courseList.get(position);
             scheduleViewModel.deleteSchedule(selectedCourse);
+            courseToDel = selectedCourse.getClassName();
+            Toast.makeText(getContext(), courseToDel + " schedule deleted successfully!", Toast.LENGTH_LONG).show();
             // Optionally, update spinner
         }
     }
