@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -91,8 +92,8 @@ public class HomePage extends Fragment {
         coursesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AutoCompleteTextView a1 = findViewById(R.id.courseTextView);
-//                a1.setHint("Enter course number such as DS XXX...");
+                TextView welcome = getView().findViewById(R.id.welcomeText);
+                welcome.setVisibility(View.INVISIBLE);
                 replaceFragment(new CoursesFragment());
             }
         });
@@ -100,6 +101,8 @@ public class HomePage extends Fragment {
         professorsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TextView welcome = getView().findViewById(R.id.welcomeText);
+                welcome.setVisibility(View.INVISIBLE);
                 replaceFragment(new ProfessorsFragment());
             }
         });

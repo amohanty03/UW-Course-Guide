@@ -1,5 +1,7 @@
 package com.cs407.uwcourseguide;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
@@ -43,11 +47,33 @@ public class ScheduleDisplayFragment extends Fragment {
         btnClearSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearSchedule();
+                showClearScheduleConfirmationDialog();
             }
         });
 
         return view;
+    }
+
+    private void showClearScheduleConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Clear Schedule Confirmation")
+                .setMessage("Are you sure you want to clear the course schedule?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User clicked Yes, clear the schedule
+                        clearSchedule();
+                        Toast.makeText(getContext(), "Course schedule cleared successfully!", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User clicked No, do nothing
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     private void displaySchedules(List<ScheduleEntity> schedules) {

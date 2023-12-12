@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -62,6 +64,7 @@ public class SchedulePage extends Fragment {
         submitButton.setOnClickListener(v -> {
             saveSchedule();
             clearInputFields();
+            Toast.makeText(getContext(), "Course added successfully!", Toast.LENGTH_LONG).show();
         });
 
 
