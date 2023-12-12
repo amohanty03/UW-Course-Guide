@@ -17,4 +17,7 @@ public interface ScheduleDao {
 
     @Delete
     void delete(ScheduleEntity schedule);
+
+    @Query("DELETE FROM ScheduleEntity")
+    void deleteAll();
 }
