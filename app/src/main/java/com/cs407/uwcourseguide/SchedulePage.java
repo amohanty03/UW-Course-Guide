@@ -56,6 +56,14 @@ public class SchedulePage extends Fragment {
         viewScheduleButton = view.findViewById(R.id.viewSchedule);
         viewScheduleButton.setOnClickListener(v -> navigateToScheduleDisplay());
 
+        Button btnNavigateToRemoveCourse = view.findViewById(R.id.btnNavigateToRemoveCourse);
+        btnNavigateToRemoveCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToRemoveCoursePage();
+            }
+        });
+
         return view;
     }
 
@@ -105,4 +113,15 @@ public class SchedulePage extends Fragment {
         transaction.addToBackStack(null); // Optional - if you want to navigate back
         transaction.commit();
     }
+
+    private void navigateToRemoveCoursePage() {
+        RemoveCourseFragment removeCourseFragment = new RemoveCourseFragment();
+
+        // Assuming you are using the FragmentManager for navigation
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.flFragment, removeCourseFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
 }
