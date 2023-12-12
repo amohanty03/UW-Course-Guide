@@ -74,27 +74,31 @@ public class LocationPage extends Fragment implements OnMapReadyCallback {
 
 
     private void handleScheduleData(List<ScheduleEntity> schedules) {
-        // Convert schedule data to map markers and update the map
-        // This might involve converting location names to LatLng, etc.
+        for (ScheduleEntity schedule : schedules) {
+            String locationName = schedule.getLocation() + " Madison, WI";
+            LatLng locationLatLng = getLocationFromAddress(locationName);
+
+            if (locationLatLng != null) {
+                String title = schedule.getClassName();
+                String snippet = "Room: " + schedule.getRoomNumber();
+
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(locationLatLng)
+                        .title(title)
+                        .snippet(snippet);
+
+                mMap.addMarker(markerOptions);
+            }
+        }
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng state1LatLng = getLocationFromAddress("Birge Hall" + " Madison, WI");
-        LatLng state2LatLng = getLocationFromAddress("Sterling Hall" + " Madison, WI");
-        LatLng state3LatLng = getLocationFromAddress("Van Vleck Hall" + " Madison, WI");
-
-        // Set initial camera position and zoom level
-        if (state1LatLng != null) {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(state1LatLng, 14)); // Adjust the zoom level as needed
-        }
-
-        // Create a list of custom markers
-        List<CustomMarker> customMarkers = new ArrayList<>();
-        customMarkers.add(new CustomMarker(state1LatLng, "CS 540: Introduction to Artificial Intelligence", "Location: 145 Birge Hall\nTime: 13:00 - 14:15", BitmapDescriptorFactory.HUE_RED));
-        customMarkers.add(new CustomMarker(state2LatLng, "CS 640: Introduction to Computer Networks", "Location: 145 Sterling Hall\nTime: 13:00 - 14:15", BitmapDescriptorFactory.HUE_GREEN));
-        customMarkers.add(new CustomMarker(state3LatLng, "CS 407: Foundations of Mobile Systems and Applications", "Location: 145 Bascom Hall\nTime: 13:00 - 14:15", BitmapDescriptorFactory.HUE_BLUE));
+        // Initialize default camera position if needed
+        // For example, centering on a default location like Madison, WI
+        LatLng defaultLocation = new LatLng(43.0731, -89.4012); // Latitude and longitude of Madison, WI
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 14)); // Adjust the zoom level as needed
 
         // Pass the LayoutInflater to the CustomInfoWindowAdapter
         CustomInfoWindowAdapter infoWindowAdapter = new CustomInfoWindowAdapter(LayoutInflater.from(requireContext()));
@@ -102,15 +106,9 @@ public class LocationPage extends Fragment implements OnMapReadyCallback {
         // Set custom info window adapter
         googleMap.setInfoWindowAdapter(infoWindowAdapter);
 
-        // Add custom markers to the map
-        for (CustomMarker marker : customMarkers) {
-            MarkerOptions markerOptions = new MarkerOptions()
-                    .position(marker.getPosition())
-                    .title(marker.getTitle())
-                    .snippet(marker.getSnippet())
-                    .icon(BitmapDescriptorFactory.defaultMarker(marker.getColor()));
-            googleMap.addMarker(markerOptions);
-        }
+        // The dynamic markers will be added in handleScheduleData method
+        // when the schedule data is observed from the ViewModel
+
         displayMyLocation();
     }
 
