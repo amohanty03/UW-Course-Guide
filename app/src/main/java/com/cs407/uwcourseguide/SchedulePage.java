@@ -105,12 +105,16 @@ public class SchedulePage extends Fragment {
         String professor = editTextProfessor.getText().toString();
         String location = autoCompleteLocation.getText().toString();
         String roomNumber = editTextRoomNumber.getText().toString();
+        String classTime = editTextCourseTime.getText().toString();
+        String days = editTextCourseDays.getText().toString();
 
         ScheduleEntity schedule = new ScheduleEntity();
         schedule.className = className;
         schedule.professor = professor;
         schedule.location = location;
         schedule.roomNumber = roomNumber;
+        schedule.time = classTime;
+        schedule.days = days;
 
         new Thread(() -> db.scheduleDao().insert(schedule)).start();
     }
