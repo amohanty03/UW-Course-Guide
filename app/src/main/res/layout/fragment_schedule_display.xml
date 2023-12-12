@@ -4,18 +4,57 @@
     android:background="@android:color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/_825f874a0476ae10d78109a2ff07e9e" />
+
+    <TextView
+        android:id="@+id/your_schedule_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="Your Schedule"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:typeface="sans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/scheduleFrameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rounded_corners"
+        android:contentDescription="@string/appbar_scrolling_view_behavior"
+        android:paddingEnd="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/your_schedule_heading"/>
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/your_schedule_heading"
         app:layout_constraintBottom_toTopOf="@id/btnClearSchedule">
 
         <TextView
             android:id="@+id/scheduleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="10dp"
             android:textColor="@android:color/black"
             android:textSize="16sp"/>
     </ScrollView>
@@ -25,7 +64,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Clear Schedule"
-        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/red_dark"
+        android:layout_marginBottom="20dp"
         app:layout_constraintTop_toBottomOf="@id/scrollView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

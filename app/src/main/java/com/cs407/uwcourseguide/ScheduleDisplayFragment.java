@@ -1,6 +1,7 @@
 package com.cs407.uwcourseguide;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,11 +51,12 @@ public class ScheduleDisplayFragment extends Fragment {
     }
 
     private void displaySchedules(List<ScheduleEntity> schedules) {
-
         StringBuilder scheduleText = new StringBuilder();
         for (ScheduleEntity schedule : schedules) {
             scheduleText.append("Class: ").append(schedule.getClassName()).append("\n");
             scheduleText.append("Professor: ").append(schedule.getProfessor()).append("\n");
+            scheduleText.append("Class Time: ").append(schedule.getTime()).append("\n");
+            scheduleText.append("Class Days: ").append(schedule.getDays()).append("\n");
             scheduleText.append("Location: ").append(schedule.getLocation()).append("\n");
             scheduleText.append("Room Number: ").append(schedule.getRoomNumber()).append("\n\n");
         }

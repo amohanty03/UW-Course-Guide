@@ -80,7 +80,8 @@ public class LocationPage extends Fragment implements OnMapReadyCallback {
 
             if (locationLatLng != null) {
                 String title = schedule.getClassName();
-                String snippet = "Room: " + schedule.getRoomNumber();
+                String snippet = "Room: " + schedule.getRoomNumber() + " " + schedule.getLocation()
+                        + "\nTime: " + schedule.getTime() + "\nDays: " + schedule.getDays();
 
                 MarkerOptions markerOptions = new MarkerOptions()
                         .position(locationLatLng)
