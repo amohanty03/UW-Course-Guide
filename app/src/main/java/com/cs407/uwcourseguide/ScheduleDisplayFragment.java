@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,6 +25,8 @@ public class ScheduleDisplayFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule_display, container, false);
         scheduleTextView = view.findViewById(R.id.scheduleTextView);
+        Button btnClearSchedule = view.findViewById(R.id.btnClearSchedule);
+
 
         // Initialize Room Database and ViewModel
         AppDatabase db = Room.databaseBuilder(getContext().getApplicationContext(),
@@ -36,11 +39,18 @@ public class ScheduleDisplayFragment extends Fragment {
         scheduleViewModel.getSchedules().observe(getViewLifecycleOwner(), schedules -> {
             displaySchedules(schedules);
         });
+        btnClearSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearSchedule();
+            }
+        });
 
         return view;
     }
 
     private void displaySchedules(List<ScheduleEntity> schedules) {
+
         StringBuilder scheduleText = new StringBuilder();
         for (ScheduleEntity schedule : schedules) {
             scheduleText.append("Class: ").append(schedule.getClassName()).append("\n");
@@ -50,4 +60,10 @@ public class ScheduleDisplayFragment extends Fragment {
         }
         scheduleTextView.setText(scheduleText.toString());
     }
+
+    private void clearSchedule() {
+        // Call the method in ViewModel to clear the schedule
+        scheduleViewModel.clearAllSchedules();
+    }
 }
+

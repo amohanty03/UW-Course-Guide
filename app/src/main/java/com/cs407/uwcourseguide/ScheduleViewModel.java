@@ -25,4 +25,8 @@ public class ScheduleViewModel extends ViewModel {
     public void deleteSchedule(ScheduleEntity schedule) {
         new Thread(() -> scheduleDao.delete(schedule)).start();
     }
+
+    public void clearAllSchedules() {
+        new Thread(() -> scheduleDao.deleteAll()).start();
+    }
 }
