@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.room.Room;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -40,6 +42,8 @@ public class LocationPage extends Fragment implements OnMapReadyCallback {
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 12;
     private LatLng myLocation; // You need to set this variable appropriately
 
+    private ScheduleViewModel scheduleViewModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,9 +58,25 @@ public class LocationPage extends Fragment implements OnMapReadyCallback {
             mapFragment.getMapAsync(this);
         }
 
+
+        // Initialize Room Database and ViewModel
+        AppDatabase db = Room.databaseBuilder(getContext().getApplicationContext(),
+                AppDatabase.class, "schedule-database").build();
+        ScheduleDao scheduleDao = db.scheduleDao();
+        ScheduleViewModelFactory viewModelFactory = new ScheduleViewModelFactory(scheduleDao);
+        scheduleViewModel = new ViewModelProvider(this, viewModelFactory).get(ScheduleViewModel.class);
+
+        // Fetch and handle schedule data
+        scheduleViewModel.getSchedules().observe(getViewLifecycleOwner(), this::handleScheduleData);
+
         return view;
     }
 
+
+    private void handleScheduleData(List<ScheduleEntity> schedules) {
+        // Convert schedule data to map markers and update the map
+        // This might involve converting location names to LatLng, etc.
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
